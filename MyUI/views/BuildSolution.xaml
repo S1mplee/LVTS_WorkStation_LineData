@@ -72,10 +72,10 @@
                 </materialDesign:Card>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <RadioButton Command="{Binding Path=v1}" FontWeight="Bold" Margin="10" IsChecked="True">V:75.3.0</RadioButton>
-                    <RadioButton Command="{Binding Path=v2}" FontWeight="Bold" Margin="10">V:75.4.0</RadioButton>
-                    <RadioButton Command="{Binding Path=v3}" FontWeight="Bold" Margin="10">V:75.3.0</RadioButton>
-                    <RadioButton Command="{Binding Path=v4}" FontWeight="Bold" Margin="10">V:75.2.0</RadioButton>
-                    <RadioButton Command="{Binding Path=v5}" FontWeight="Bold" Margin="10">V:75.1.0</RadioButton>
+                    <RadioButton Command="{Binding Path=v2}" FontWeight="Bold" Margin="10">V:75.0.0</RadioButton>
+                    <RadioButton Command="{Binding Path=v3}" FontWeight="Bold" Margin="10">V:74.0.0</RadioButton>
+                    <RadioButton Command="{Binding Path=v4}" FontWeight="Bold" Margin="10">V:73.0.0</RadioButton>
+                    <RadioButton Command="{Binding Path=v5}" FontWeight="Bold" Margin="10">V:72.0.0</RadioButton>
 
                 </StackPanel>
                 <materialDesign:Card Padding="4">
@@ -84,19 +84,25 @@
                 <StackPanel Orientation="Horizontal">
                     <StackPanel>
                         <Label FontStyle="Normal" Margin="10" Foreground="#FFCF1F1F" FontWeight="Bold" HorizontalAlignment="Center">RockWave :</Label>
-                        <ComboBox Width="350" Margin="10" SelectedIndex="{Binding selected}" ItemsSource="{Binding list}" DisplayMemberPath="RockWave" >
+                        <ComboBox  Width="350" Margin="10" SelectedIndex="{Binding selected}" ItemsSource="{Binding list}" DisplayMemberPath="RockWave" >
                         </ComboBox>
                     </StackPanel>
                     <StackPanel>
                         <Label FontStyle="Normal" Margin="10" Foreground="#FFCF1F1F" FontWeight="Bold" HorizontalAlignment="Center">CodeJockWave :</Label>
-                        <ComboBox Width="350" Margin="10" SelectedIndex="{Binding selected}" ItemsSource="{Binding list}" DisplayMemberPath="CodejockWave">
+                        <ComboBox   Width="350" Margin="10" SelectedIndex="{Binding selected}" ItemsSource="{Binding list}" DisplayMemberPath="CodejockWave">
                         </ComboBox>
                     </StackPanel>
                 </StackPanel>
                 <materialDesign:Card Padding="4">
                     <Label FontStyle="Normal" Foreground="#FF41A43C" FontWeight="Bold" HorizontalAlignment="Center">Path Where You Downloaded the Product :</Label>
                 </materialDesign:Card>
-                <TextBox Margin="0 0 0 0" Padding="4">Path Is Here </TextBox>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Margin="0 0 0 0" Padding="4" Text="{Binding path}" Width="600"></TextBox>
+                    <Button Command="{Binding folderplus}" Margin="80 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="MaterialDesignFloatingActionMiniLightButton">
+                        <materialDesign:PackIcon Kind="FolderPlus" Height="24" Width="24" />
+                    </Button>
+                </StackPanel>
                 <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
                     <Button Command="{Binding Path=Build}" Margin="10" Style="{StaticResource MaterialDesignRaisedAccentButton}" Width="100"
                         ToolTip="Resource name: MaterialDesignRaisedAccentButton">

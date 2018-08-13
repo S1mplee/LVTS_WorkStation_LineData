@@ -13,7 +13,7 @@ namespace MyUI.models
     public class Service
     {
 
-        public void editingFile(string Rockwavepath1, string Codejockpath, int version)
+        public void editingFile(string Rockwavepath1, string Codejockpath, int version,string path)
         {
             List<string> text = new List<string>();
             string Rockwavepath12 = "", Rockwavepath22 = "", Codejockpath2 = "", codejockpath3 = "";
@@ -30,40 +30,39 @@ namespace MyUI.models
             text.Add("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
             text.Add("<Project DefaultTargets=\"Build\" ToolsVersion=\"4.0\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">");
             text.Add(" <PropertyGroup Condition=\"$(WindowsSDK_LibraryPath_x86) == \'\'\">");
-            text.Add("    <ExecutablePath>$(ExecutablePath);D:\\TFS\\" + Codejockpath2 + ";D:\\TFS\\" + Rockwavepath22 + "</ExecutablePath>");
+            text.Add("    <ExecutablePath>$(ExecutablePath);" + path + "\\" + Codejockpath2 + ";" + path + "\\" + Rockwavepath22 + "</ExecutablePath>");
             text.Add("  </PropertyGroup>");
             text.Add(" <PropertyGroup Condition=\"$(WindowsSDK_LibraryPath_x86) == \'\'\">");
-            text.Add("    <IncludePath>$(IncludePath);D:\\TFS\\" + Codejockpath + "\\Source;D:\\TFS\\" + Rockwavepath1 + "\\Include;D:\\TFS\\Rogue Wave\\Stingray Studio 12.1\\Regex\\include;D:\\TFS\\" + Rockwavepath1 + "\\RWUXTheme\\Include</IncludePath>");
+            text.Add("    <IncludePath>$(IncludePath);" + path + "\\" + Codejockpath + "\\Source;" + path + "\\" + Rockwavepath1 + "\\Include;" + path + "\\" + "\\" + Rockwavepath1 + "\\Regex\\include;" + path + "\\" + Rockwavepath1 + "\\RWUXTheme\\Include</IncludePath>");
             text.Add("  </PropertyGroup>");
             text.Add(" <PropertyGroup Condition=\"$(WindowsSDK_LibraryPath_x86) == \'\'\">");
-            text.Add("    <ReferencePath>$(ReferencePath);C:\\Program Files (x86)\\Xceed\\Xceed DataGrid for WPF v2.0\\Bin</ReferencePath>");
+            text.Add("    <ReferencePath>$(ReferencePath);"+path+"\\"+"Xceed\\Xceed DataGrid for WPF v2.0\\Bin</ReferencePath>");
             text.Add("  </PropertyGroup>");
             text.Add(" <PropertyGroup Condition=\"$(WindowsSDK_LibraryPath_x86) == \'\'\">");
-            text.Add("    <LibraryPath>$(LibraryPath);D:\\TFS\\" + codejockpath3 + ";D:\\TFS\\" + Rockwavepath22 + "</LibraryPath>");
+            text.Add("    <LibraryPath>$(LibraryPath);" + path + "\\" + codejockpath3 + ";" + path + "\\" + Rockwavepath22 + "</LibraryPath>");
             text.Add("  </PropertyGroup>");
             text.Add(" <PropertyGroup Condition=\"$(WindowsSDK_LibraryPath_x86) == \'\'\">");
-            text.Add("    <SourcePath>$(SourcePath);D:\\TFS\\" + Codejockpath + "\\Source;D:\\TFS\\" + Rockwavepath1 + "\\Src;D:\\TFS\\" + Rockwavepath1 + "\\Regex\\src</SourcePath>");
+            text.Add("    <SourcePath>$(SourcePath);" + path + "\\" + Codejockpath + "\\Source;" + path + "\\" + Rockwavepath1 + "\\Src;" + path + "\\" + Rockwavepath1 + "\\Regex\\src</SourcePath>");
             text.Add("  </PropertyGroup>");
             text.Add(" <PropertyGroup Condition=\"$(WindowsSDK_LibraryPath_x86) == \'\'\">");
             text.Add("    <ExcludePath>$(ExcludePath)</ExcludePath>");
             text.Add("  </PropertyGroup>");
                 // !=
-            text.Add("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-            text.Add("<Project DefaultTargets=\"Build\" ToolsVersion=\"4.0\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">");
+         
             text.Add(" <PropertyGroup Condition=\"$(WindowsSDK_LibraryPath_x86) != \'\'\">");
-            text.Add("    <ExecutablePath>$(ExecutablePath);D:\\TFS\\" + Codejockpath2 + ";D:\\TFS\\" + Rockwavepath22 + "</ExecutablePath>");
+            text.Add("    <ExecutablePath>$(ExecutablePath);" + path + "\\" + Codejockpath2 + ";" + path + "\\" + Rockwavepath22 + "</ExecutablePath>");
             text.Add("  </PropertyGroup>");
             text.Add(" <PropertyGroup Condition=\"$(WindowsSDK_LibraryPath_x86) != \'\'\">");
-            text.Add("    <IncludePath>$(IncludePath);D:\\TFS\\" + Codejockpath + "\\Source;D:\\TFS\\" + Rockwavepath1 + "\\Include;D:\\TFS\\Rogue Wave\\Stingray Studio 12.1\\Regex\\include;D:\\TFS\\" + Rockwavepath1 + "\\RWUXTheme\\Include</IncludePath>");
+            text.Add("    <IncludePath>$(IncludePath);" + path + "\\" + Codejockpath + "\\Source;" + path + "\\" + Rockwavepath1 + "\\Include;" + path + "\\" + Rockwavepath1 + "\\Regex\\include;" + path + "\\" + Rockwavepath1 + "\\RWUXTheme\\Include</IncludePath>");
             text.Add("  </PropertyGroup>");
             text.Add(" <PropertyGroup Condition=\"$(WindowsSDK_LibraryPath_x86) != \'\'\">");
-            text.Add("    <ReferencePath>$(ReferencePath);C:\\Program Files (x86)\\Xceed\\Xceed DataGrid for WPF v2.0\\Bin</ReferencePath>");
+            text.Add("    <ReferencePath>$(ReferencePath);"+path+"\\"+"Xceed\\Xceed DataGrid for WPF v2.0\\Bin</ReferencePath>");
             text.Add("  </PropertyGroup>");
             text.Add(" <PropertyGroup Condition=\"$(WindowsSDK_LibraryPath_x86) != \'\'\">");
-            text.Add("    <LibraryPath>$(LibraryPath);D:\\TFS\\" + codejockpath3 + ";D:\\TFS\\" + Rockwavepath22 + "</LibraryPath>");
+            text.Add("    <LibraryPath>$(LibraryPath);" + path + "\\" + codejockpath3 + ";" + path + "\\" + Rockwavepath22 + "</LibraryPath>");
             text.Add("  </PropertyGroup>");
             text.Add(" <PropertyGroup Condition=\"$(WindowsSDK_LibraryPath_x86) != \'\'\">");
-            text.Add("    <SourcePath>$(SourcePath);D:\\TFS\\" + Codejockpath + "\\Source;D:\\TFS\\" + Rockwavepath1 + "\\Src;D:\\TFS\\" + Rockwavepath1 + "\\Regex\\src</SourcePath>");
+            text.Add("    <SourcePath>$(SourcePath);" + path + "\\" + Codejockpath + "\\Source;" + path + "\\" + Rockwavepath1 + "\\Src;" + path + "\\" + Rockwavepath1 + "\\Regex\\src</SourcePath>");
             text.Add("  </PropertyGroup>");
             text.Add(" <PropertyGroup Condition=\"$(WindowsSDK_LibraryPath_x86) != \'\'\">");
             text.Add("    <ExcludePath>$(ExcludePath)</ExcludePath>");
@@ -76,10 +75,11 @@ namespace MyUI.models
             text.Add("</Project>");
 
 
-            File.Create("Microsoft.Cpp.x64.user.props");
-            File.Create("Microsoft.Cpp.x64.user.props");
-            File.WriteAllLines("Microsoft.Cpp.x64.user.props", text);
-            File.WriteAllLines("Microsoft.Cpp.Win32.user.props", text);
+          //  File.Create("Microsoft.Cpp.x64.user.props");
+           // File.Create("Microsoft.Cpp.Win32.user.props");
+            // C:\Users\MSI\AppData\Local\Microsoft\MSBuild\v4.0\Microsoft.Cpp.x64.user.props
+            File.WriteAllLines("C:\\Users\\"+Environment.UserName+"\\AppData\\Local\\Microsoft\\MSBuild\\v4.0\\Microsoft.Cpp.x64.user.props", text);
+            File.WriteAllLines("C:\\Users\\" + Environment.UserName + "\\AppData\\Local\\Microsoft\\MSBuild\\v4.0\\Microsoft.Cpp.Win32.user.props", text);
 
         }
 
@@ -101,16 +101,16 @@ namespace MyUI.models
             
         }
 
-        public static void Update_MSBUILD(string RockwavePath, string CodjocksoftwarePath, int version)
+        public  void Update_MSBUILD(string RockwavePath, string CodjocksoftwarePath, int version,string path)
         {
             string Rockwavepath1 = "", Rockwavepath2 = "";
             switch (version)
             {
-                case 7200: Rockwavepath1 = "D:\\TFS\\" + RockwavePath + "\\Lib"; CodjocksoftwarePath = "D:\\TFS\\" + CodjocksoftwarePath + "\\Bin\\vc100"; Rockwavepath2 = "D:\\TFS\\" + RockwavePath + "\\Regex\\lib\\VC6"; break;
-                case 7500: Rockwavepath1 = "D:\\TFS\\" + RockwavePath + "\\Lib"; CodjocksoftwarePath = "D:\\TFS\\" + CodjocksoftwarePath + "\\Bin\\vc120"; Rockwavepath2 = "D:\\TFS\\" + RockwavePath + "\\Regex\\lib\\VC6"; break;
-                case 7530: Rockwavepath1 = "D:\\TFS\\" + RockwavePath + "\\Bin"; CodjocksoftwarePath = "D:\\TFS\\" + CodjocksoftwarePath + "\\Bin\\vc120x64"; Rockwavepath2 = "D:\\TFS\\" + RockwavePath + "\\lib\\vc12\\x64"; break;
-                case 7300: Rockwavepath1 = "D:\\TFS\\" + RockwavePath + "\\Lib"; CodjocksoftwarePath = "D:\\TFS\\" + CodjocksoftwarePath + "\\Bin\\vc100"; Rockwavepath2 = "D:\\TFS\\" + RockwavePath + "\\Regex\\lib\\VC6"; break;
-                case 7400: Rockwavepath1 = "D:\\TFS\\" + RockwavePath + "\\Lib"; CodjocksoftwarePath = "D:\\TFS\\" + CodjocksoftwarePath + "\\Bin\\vc100"; Rockwavepath2 = "D:\\TFS\\" + RockwavePath + "\\Regex\\lib\\VC6"; break;
+                case 7200: Rockwavepath1 = path + "\\" + RockwavePath + "\\Lib"; CodjocksoftwarePath = path + "\\" + CodjocksoftwarePath + "\\Bin\\vc100"; Rockwavepath2 = path + "\\" + RockwavePath + "\\Regex\\lib\\VC6"; break;
+                case 7500: Rockwavepath1 = path + "\\" + RockwavePath + "\\Lib"; CodjocksoftwarePath = path + "\\" + CodjocksoftwarePath + "\\Bin\\vc120"; Rockwavepath2 = path + "\\" + RockwavePath + "\\Regex\\lib\\VC6"; break;
+                case 7530: Rockwavepath1 = path + "\\" + RockwavePath + "\\Bin"; CodjocksoftwarePath = path + "\\" + CodjocksoftwarePath + "\\Bin\\vc120x64"; Rockwavepath2 = path + "\\" + RockwavePath + "\\lib\\vc12\\x64"; break;
+                case 7300: Rockwavepath1 = path + "\\" + RockwavePath + "\\Lib"; CodjocksoftwarePath = path + "\\" + CodjocksoftwarePath + "\\Bin\\vc100"; Rockwavepath2 = path + "\\" + RockwavePath + "\\Regex\\lib\\VC6"; break;
+                case 7400: Rockwavepath1 = path + "\\" + RockwavePath + "\\Lib"; CodjocksoftwarePath = path + "\\" + CodjocksoftwarePath + "\\Bin\\vc100"; Rockwavepath2 = path + "\\" + RockwavePath + "\\Regex\\lib\\VC6"; break;
 
 
             }
@@ -125,7 +125,7 @@ namespace MyUI.models
 
         }
 
-        public void AutoBuild(string param)
+        public bool AutoBuild(string param)
         {
             string projectFilePath = Path.Combine(@"C:\Users\MSI\source\repos\FirstApp\FirstApp.sln");
 
@@ -145,12 +145,28 @@ namespace MyUI.models
             BuildResult buildResult = BuildManager.DefaultBuildManager.Build(bp, BuidlRequest);
             if (buildResult.OverallResult == BuildResultCode.Success)
             {
-                Console.WriteLine("Sucess");
+                return true;
             }
             else
             {
-                Console.WriteLine("failed");
+                return false;
             }
+        }
+
+        public bool IsValidPath(string path)
+        {
+            bool isValid = true;
+
+            if (System.IO.Directory.Exists(path))
+            {
+                isValid = true;
+            }
+            else
+            {
+                isValid = false;
+            }
+
+            return isValid;
         }
     }
 }

@@ -55,7 +55,17 @@ namespace MyUI.models
             // DONE LOGGING, LET GO OF THE FILE
             
             BuildErrors = errorLog.ToString();
-            File.WriteAllText("log.txt", BuildErrors);
+            if (BuildErrors.Count() == 0)
+            {
+                File.WriteAllText("log.txt", "Build Succeded  \r\n");
+            }
+            else
+            {
+                File.WriteAllText("log.txt", "Build Failed  \r\n");
+                File.WriteAllText("log.txt", BuildErrors + "  \r\n");
+
+            }
+            
         }
     }
 }
