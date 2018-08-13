@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="MyUI.views.BuildSolution"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+     TextElement.FontWeight="Regular"
+     TextElement.FontSize="13"
+     TextOptions.TextFormattingMode="Ideal"
+     TextOptions.TextRenderingMode="Auto"
+     Background="{DynamicResource MaterialDesignPaper}"
+     FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns:MetroChart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="850">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Background="#f0f8ff" Margin="10">
+                <Grid Width="35" Height="50" Background="#FFFFAF24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
+                    <Grid.Effect>
+                        <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
+                    </Grid.Effect>
+                    <materialDesign:PackIcon Kind="ContentCopy" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 20">
+                    <TextBlock Text="LongView" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="40"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1" Background="#f0f8ff" Margin="10">
+                <Grid Width="35" Height="50" Background="#FF41A43C" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
+                    <Grid.Effect>
+                        <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
+                    </Grid.Effect>
+                    <materialDesign:PackIcon Kind="Store" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 20">
+                    <TextBlock Text="Build" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="40"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="2" Background="#f0f8ff" Margin="10">
+                <Grid Width="35" Height="50" Background="#FFCF1F1F" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
+                    <Grid.Effect>
+                        <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
+                    </Grid.Effect>
+                    <materialDesign:PackIcon Kind="InformationOutline" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 20">
+                    <TextBlock FontWeight="Bold" Text="Resultat :" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="15"/>
+                    <TextBlock Margin="20" Text="{Binding resultat}" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="15"/>
+
+                  
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+        <Grid Grid.Row="1" Margin="50" Background="#f0f8ff">
+            <StackPanel>
+                <materialDesign:Card Padding="4">
+                    <Label FontStyle="Normal" FontWeight="Bold" Foreground="#FF41A43C" HorizontalAlignment="Center">Choose the Version :</Label>
+                </materialDesign:Card>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <RadioButton Command="{Binding Path=v1}" FontWeight="Bold" Margin="10" IsChecked="True">V:75.3.0</RadioButton>
+                    <RadioButton Command="{Binding Path=v2}" FontWeight="Bold" Margin="10">V:75.4.0</RadioButton>
+                    <RadioButton Command="{Binding Path=v3}" FontWeight="Bold" Margin="10">V:75.3.0</RadioButton>
+                    <RadioButton Command="{Binding Path=v4}" FontWeight="Bold" Margin="10">V:75.2.0</RadioButton>
+                    <RadioButton Command="{Binding Path=v5}" FontWeight="Bold" Margin="10">V:75.1.0</RadioButton>
+
+                </StackPanel>
+                <materialDesign:Card Padding="4">
+                    <Label FontStyle="Normal" Foreground="#FF41A43C" FontWeight="Bold" HorizontalAlignment="Center">3rdPartyLibrary :</Label>
+                </materialDesign:Card>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel>
+                        <Label FontStyle="Normal" Margin="10" Foreground="#FFCF1F1F" FontWeight="Bold" HorizontalAlignment="Center">RockWave :</Label>
+                        <ComboBox Width="350" Margin="10" SelectedIndex="{Binding selected}" ItemsSource="{Binding list}" DisplayMemberPath="RockWave" >
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel>
+                        <Label FontStyle="Normal" Margin="10" Foreground="#FFCF1F1F" FontWeight="Bold" HorizontalAlignment="Center">CodeJockWave :</Label>
+                        <ComboBox Width="350" Margin="10" SelectedIndex="{Binding selected}" ItemsSource="{Binding list}" DisplayMemberPath="CodejockWave">
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
+                <materialDesign:Card Padding="4">
+                    <Label FontStyle="Normal" Foreground="#FF41A43C" FontWeight="Bold" HorizontalAlignment="Center">Path Where You Downloaded the Product :</Label>
+                </materialDesign:Card>
+                <TextBox Margin="0 0 0 0" Padding="4">Path Is Here </TextBox>
+                <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
+                    <Button Command="{Binding Path=Build}" Margin="10" Style="{StaticResource MaterialDesignRaisedAccentButton}" Width="100"
+                        ToolTip="Resource name: MaterialDesignRaisedAccentButton">
+                        Build
+                    </Button>
+                    <Button Command="{Binding Path=Clean}" Margin="520 0 0 0" Style="{StaticResource MaterialDesignRaisedLightButton}" Width="100"
+                        ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                        Clean
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
