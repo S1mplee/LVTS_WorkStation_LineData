@@ -68,7 +68,12 @@
                 </Button>
 
 
-
+                <Button Margin="0 325 0 0" Background="#ff0000" BorderBrush="#FF8522BD" Click="Button_Click" >
+                    <Grid Width="150">
+                        <materialDesign:PackIcon Kind="Engine" VerticalAlignment="Center"/>
+                        <TextBlock HorizontalAlignment="Center" Text="ExecuteScript >>" FontFamily="Champagne &amp; Limousines"/>
+                    </Grid>
+                </Button>
 
 
 

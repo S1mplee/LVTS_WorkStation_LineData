@@ -1,6 +1,4 @@
-﻿using Microsoft.Build.Evaluation;
-using Microsoft.Build.Execution;
-using Microsoft.Build.Framework;
+﻿
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -125,33 +123,7 @@ namespace MyUI.models
 
         }
 
-        public bool AutoBuild(string param)
-        {
-            string projectFilePath = Path.Combine(@"C:\Users\MSI\source\repos\FirstApp\FirstApp.sln");
-
-            ProjectCollection pc = new ProjectCollection();
-
-            // THERE ARE A LOT OF PROPERTIES HERE, THESE MAP TO THE MSBUILD CLI PROPERTIES
-            Dictionary<string, string> GlobalProperty = new Dictionary<string, string>();
-            GlobalProperty.Add("Configuration", "Debug");
-          //  GlobalProperty.Add("Platform", "Any CPU");
-           // GlobalProperty.Add("OutputPath", @"C:\Output");
-
-            BuildParameters bp = new BuildParameters(pc);
-            MsBuildMemoryLogger customLogger = new MsBuildMemoryLogger();
-            bp.Loggers = new List<ILogger>() { customLogger };
-            BuildRequestData BuidlRequest = new BuildRequestData(projectFilePath, GlobalProperty, "12.0", new string[] { param }, null);
-            // A SIMPLE WAY TO CHECK THE RESULT
-            BuildResult buildResult = BuildManager.DefaultBuildManager.Build(bp, BuidlRequest);
-            if (buildResult.OverallResult == BuildResultCode.Success)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+       
 
         public bool IsValidPath(string path)
         {

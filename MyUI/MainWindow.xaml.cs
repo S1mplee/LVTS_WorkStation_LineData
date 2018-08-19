@@ -1,4 +1,5 @@
-﻿using MyUI.viewmodels;
+﻿using MyUI.models;
+using MyUI.viewmodels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,18 @@ namespace MyUI
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             DataContext = new DataBaseBuildVM();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+           
+                PSListenerConsoleSample scc = new PSListenerConsoleSample();
+                ConsoleManager.Show();
+                scc.RuningPowerShell();
+           
+           
+              
         }
     }
 }
