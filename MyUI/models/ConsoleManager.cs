@@ -68,7 +68,7 @@ namespace MyUI.models
             }
             else
             {
-                Show();
+               Show();
             }
         }
 

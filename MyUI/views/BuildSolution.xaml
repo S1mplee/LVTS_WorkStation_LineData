@@ -13,7 +13,176 @@
      FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:MetroChart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="850">
+             d:DesignHeight="900" d:DesignWidth="850">
+
+    <UserControl.Resources>
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Border
+                  x:Name="Border" 
+                  Grid.ColumnSpan="2"
+                  CornerRadius="0"
+                  Background="#FF3F3F3F"
+                  BorderBrush="#FF97A0A5"
+                  BorderThickness="1" />
+                <Border 
+                  Grid.Column="0"
+                  CornerRadius="0" 
+                  Margin="1" 
+                  Background="#FF3F3F3F" 
+                  BorderBrush="#FF97A0A5"
+                  BorderThickness="0,0,1,0" />
+                <Path 
+                  x:Name="Arrow"
+                  Grid.Column="1"     
+                  Fill="White"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
+                />
+            </Grid>
+            <!--<ControlTemplate.Triggers>
+            <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="#808080" />
+            </Trigger>
+            <Trigger Property="ToggleButton.IsChecked" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="#E0E0E0" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Border" Property="Background" Value="#EEEEEE" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="#AAAAAA" />
+                <Setter Property="Foreground" Value="#888888"/>
+                <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
+            </Trigger>
+        </ControlTemplate.Triggers>-->
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+            <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+        </ControlTemplate>
+
+        <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <ToggleButton 
+                            Name="ToggleButton" 
+                            Template="{StaticResource ComboBoxToggleButton}" 
+                            Grid.Column="2" 
+                            Focusable="false"
+                            IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                            ClickMode="Press">
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                            Margin="3,3,23,3"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left" />
+                            <TextBox x:Name="PART_EditableTextBox"
+                            Style="{x:Null}" 
+                            Template="{StaticResource ComboBoxTextBox}" 
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Center" 
+                            Margin="3,3,23,3"
+                            Focusable="True" 
+                            Background="#a13131"
+                            Foreground="Green"
+                            Visibility="Hidden"
+                            IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup 
+                            Name="Popup"
+                            Placement="Bottom"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            AllowsTransparency="True" 
+                            Focusable="False"
+                            PopupAnimation="Slide">
+
+                                <Grid Name="DropDown"
+                              SnapsToDevicePixels="True"                
+                              MinWidth="{TemplateBinding ActualWidth}"
+                              MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border 
+                                x:Name="DropDownBorder"
+                                Background="#a13131"
+
+                                BorderThickness="1"
+                                BorderBrush="#888888"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#888888"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0"/>
+                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsEditable"  Value="true">
+                                <Setter Property="IsTabStop" Value="false"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+            </Style.Triggers>
+        </Style>
+
+        <!-- SimpleStyles: ComboBoxItem -->
+        <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border Name="Border"
+                              Padding="2"
+                              SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#FF4F4F4F"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#888888"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+
+    <!-- View-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -35,7 +204,7 @@
                     <materialDesign:PackIcon Kind="ContentCopy" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
                 </Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 20">
-                    <TextBlock Text="LongView" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="40"/>
+                    <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}" Text="LongView" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="40"/>
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1" Background="#f0f8ff" Margin="10">
@@ -46,7 +215,8 @@
                     <materialDesign:PackIcon Kind="Store" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
                 </Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 20">
-                    <TextBlock Text="Build" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="40"/>
+                    <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}" Text="Build" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="40"/>
+                    
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="2" Background="#f0f8ff" Margin="10">
@@ -56,11 +226,10 @@
                     </Grid.Effect>
                     <materialDesign:PackIcon Kind="InformationOutline" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
                 </Grid>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 20">
-                    <TextBlock FontWeight="Bold" Text="Resultat :" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="15"/>
-                    <TextBlock Margin="20" Text="{Binding resultat}" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="15"/>
-
-                  
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 20">
+                    <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="10" FontWeight="Bold" Text="Mode  :" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="15" Width="129"/>
+                    <RadioButton IsChecked="True"   FontWeight="SemiBold" Foreground="Green" Margin="10" Content="Debug" Command="{Binding debug}"/>
+                    <RadioButton BorderBrush="Red" FontWeight="SemiBold" Margin="10" Foreground="Red" Content="Release" Command="{Binding release}"/>
                 </StackPanel>
             </Grid>
 
@@ -83,25 +252,61 @@
                 </materialDesign:Card>
                 <StackPanel Orientation="Horizontal">
                     <StackPanel>
-                        <Label FontStyle="Normal" Margin="10" Foreground="#FFCF1F1F" FontWeight="Bold" HorizontalAlignment="Center">RockWave :</Label>
-                        <ComboBox  Width="350" Margin="10" SelectedIndex="{Binding selected}" ItemsSource="{Binding list}" DisplayMemberPath="RockWave" >
-                        </ComboBox>
+                        <Label FontStyle="Normal" Margin="10" Foreground="#FFCF1F1F" FontWeight="Bold" HorizontalAlignment="Center">RogueWave :</Label>
+                        <Border Padding="10" Background="#ffffff">
+
+                            <ComboBox  Width="350" Margin="10" SelectedIndex="{Binding selected}" ItemsSource="{Binding list}" DisplayMemberPath="RockWave" >
+                            </ComboBox>
+                        </Border>
                     </StackPanel>
                     <StackPanel>
                         <Label FontStyle="Normal" Margin="10" Foreground="#FFCF1F1F" FontWeight="Bold" HorizontalAlignment="Center">CodeJockWave :</Label>
-                        <ComboBox   Width="350" Margin="10" SelectedIndex="{Binding selected}" ItemsSource="{Binding list}" DisplayMemberPath="CodejockWave">
-                        </ComboBox>
+                        <Border Padding="10" Background="#ffffff">
+
+                            <ComboBox Width="350" Margin="10" Background="#a13131" SelectedIndex="{Binding selected}" ItemsSource="{Binding list}" DisplayMemberPath="CodejockWave">
+                            </ComboBox>
+                        </Border>
                     </StackPanel>
                 </StackPanel>
                 <materialDesign:Card Padding="4">
                     <Label FontStyle="Normal" Foreground="#FF41A43C" FontWeight="Bold" HorizontalAlignment="Center">Path Where You Downloaded the Product :</Label>
                 </materialDesign:Card>
-                <StackPanel Orientation="Horizontal">
-                    <TextBox Margin="0 0 0 0" Padding="4" Text="{Binding path}" Width="600"></TextBox>
-                    <Button Command="{Binding folderplus}" Margin="80 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <Label FontWeight="Bold" Margin="15"> LongView Path :</Label>
+                        <TextBox  Margin="10 0 0 0" Padding="2" Text="{Binding LongViewpath}" Width="400"></TextBox>
+                    <Button Command="{Binding folderplus}" Margin="150 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                             ToolTip="MaterialDesignFloatingActionMiniLightButton">
                         <materialDesign:PackIcon Kind="FolderPlus" Height="24" Width="24" />
                     </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label FontWeight="Bold" Margin="15">RogueWave Path :</Label>
+
+                        <TextBox Margin="0 0 0 0" Padding="2" Text="{Binding RogueWavepath}" Width="400"></TextBox>
+                        <Button Command="{Binding folderplus2}" Margin="150 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="MaterialDesignFloatingActionMiniLightButton">
+                            <materialDesign:PackIcon Kind="FolderPlus" Height="24" Width="24" />
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label FontWeight="Bold" Margin="15">CodeJock Path :</Label>
+
+                        <TextBox Margin="10 0 0 0" Padding="2" Text="{Binding CodeJockpath}" Width="400"></TextBox>
+                        <Button Command="{Binding folderplus3}" Margin="150 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="MaterialDesignFloatingActionMiniLightButton">
+                            <materialDesign:PackIcon Kind="FolderPlus" Height="24" Width="24" />
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label FontWeight="Bold" Margin="15">Xceed Path :</Label>
+
+                        <TextBox Margin="10 0 0 0" Padding="2" Text="{Binding Xceed}" Width="400"></TextBox>
+                        <Button Command="{Binding folderplus4}" Margin="150 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="MaterialDesignFloatingActionMiniLightButton">
+                            <materialDesign:PackIcon Kind="FolderPlus" Height="24" Width="24" />
+                        </Button>
+                    </StackPanel>
                 </StackPanel>
                 <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
                     <Button Command="{Binding Path=Build}" Margin="10" Style="{StaticResource MaterialDesignRaisedAccentButton}" Width="100"

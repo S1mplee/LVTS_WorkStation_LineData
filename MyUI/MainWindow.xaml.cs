@@ -38,7 +38,7 @@ namespace MyUI
             DataContext = new DataBaseBuildVM();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_ClickAsync(object sender, RoutedEventArgs e)
         {
 
            

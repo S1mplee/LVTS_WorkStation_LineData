@@ -12,8 +12,18 @@ namespace MyUI.viewmodels
 {
     public class BuildSolutionVM :ReactiveObject
     {
-        private string _path;
-        public string path { get { return _path; } set { this.RaiseAndSetIfChanged(ref _path, value); } }
+        private string _LongViewpath;
+        public string LongViewpath { get { return _LongViewpath; } set { this.RaiseAndSetIfChanged(ref _LongViewpath, value); } }
+
+        private string _RogueWavepath;
+        public string RogueWavepath { get { return _RogueWavepath; } set { this.RaiseAndSetIfChanged(ref _RogueWavepath, value); } }
+
+        private string _Xceed;
+        public string Xceed { get { return _Xceed; } set { this.RaiseAndSetIfChanged(ref _Xceed, value); } }
+
+
+        private string _CodeJockpath;
+        public string CodeJockpath { get { return _CodeJockpath; } set { this.RaiseAndSetIfChanged(ref _CodeJockpath, value); } }
 
         private int _selectedVersion;
         public int selectedVersion { get { return _selectedVersion; } set { this.RaiseAndSetIfChanged(ref _selectedVersion, value); } }
@@ -24,13 +34,16 @@ namespace MyUI.viewmodels
         private string _Codejock;
         public string Codejock { get { return _Codejock; } set { this.RaiseAndSetIfChanged(ref _Codejock, value); } }
 
+        private string _Mode;
+        public string Mode { get { return _Mode; } set { this.RaiseAndSetIfChanged(ref _Mode, value); } }
+
         Service sc = new Service();
         // Constructor 
         public BuildSolutionVM()
         {
             selected = 0;
             selectedVersion = 7530;
-            
+            Mode = "Debug";
             getList();
             RockWave = list[0].RockWave;
             Codejock = list[0].CodejockWave;
@@ -44,19 +57,76 @@ namespace MyUI.viewmodels
             v4 = changeSelectedItem(3,7300);
             v5 = changeSelectedItem(4,7200);
             // folder path
-            folderplus = getpath();
-
-
+            folderplus = getpath1();
+            folderplus2 = getpath2();
+            folderplus3 = getpath3();
+            folderplus4 = getpath4();
+            debug = changeToDebug();
+            release = changeToRelease();
         }
 
-        private ReactiveCommand getpath()
+        private ReactiveCommand changeToRelease()
+        {
+            return ReactiveCommand.Create(() =>
+            {
+                Mode = "Release";
+                MessageBox.Show(Mode);
+            });
+        }
+
+        private ReactiveCommand changeToDebug()
+        {
+            return ReactiveCommand.Create(() =>
+            {
+                Mode = "Debug";
+                MessageBox.Show(Mode);
+            });
+        }
+
+        private ReactiveCommand getpath4()
         {
             return ReactiveCommand.Create(() =>
             {
                 using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
                 {
                     System.Windows.Forms.DialogResult result = dialog.ShowDialog();
-                    path = dialog.SelectedPath;
+                    Xceed = dialog.SelectedPath;
+                }
+            });
+        }
+
+        private ReactiveCommand getpath1()
+        {
+            return ReactiveCommand.Create(() =>
+            {
+                using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+                {
+                    System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+                    LongViewpath = dialog.SelectedPath;
+                }
+            });
+        }
+
+        private ReactiveCommand getpath2()
+        {
+            return ReactiveCommand.Create(() =>
+            {
+                using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+                {
+                    System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+                    RogueWavepath = dialog.SelectedPath;
+                }
+            });
+        }
+
+        private ReactiveCommand getpath3()
+        {
+            return ReactiveCommand.Create(() =>
+            {
+                using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+                {
+                    System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+                    CodeJockpath = dialog.SelectedPath;
                 }
             });
         }
@@ -89,31 +159,36 @@ namespace MyUI.viewmodels
         private void ExecuteBuild()
         {
             File.AppendAllText("log.txt", " << Building Project V : " + selectedVersion + " >> \r\n");
-            if (!sc.IsValidPath(@path) )
+            if (!sc.IsValidPath(@LongViewpath) )
             {
                 File.AppendAllText("log.txt", "Folder does Not Existe \r\n");
                 MessageBox.Show("Folder does Not Existe");
             }
-            else if (!sc.IsValidPath((path+"\\Rogue Wave"))) {
+            else if (!sc.IsValidPath(@RogueWavepath)) {
                 File.AppendAllText("log.txt", "MISSING ROGUE WAVE ! \r\n");
                 MessageBox.Show("MISSING ROGUE WAVE !");
             }
-            else if (!sc.IsValidPath((path+"\\Codejock Software"))) {
+            else if (!sc.IsValidPath(@CodeJockpath+"\\"+Codejock)) {
                 File.AppendAllText("log.txt", "MISSING Codejock Software ! \r\n");
                 MessageBox.Show("MISSING Codejock Software !");
             }
             else if (!sc.IsValidPath("C:\\Users\\"+Environment.UserName+"\\AppData\\Local\\Microsoft\\MSBuild\\v4.0")) {
                 File.AppendAllText("log.txt", "MISSING Visual Studio Build tools (2013)! \r\n");
                 MessageBox.Show("MISSING MISSING Visual Studio Build tools !");
-            }
-           /* else if (!sc.PerlVerif()) {
+            }/*
+           else if (!sc.PerlVerif()) {
                 File.AppendAllText("log.txt", "MISSING Perl! \r\n");
                 MessageBox.Show("You need to install Perl !");
             }*/
-          //  sc.Update_MSBUILD(RockWave, Codejock, selectedVersion, path);
+            else
+            {
+
+           
             File.AppendAllText("log.txt", "Updated Path Environement ! \r\n");
-            sc.editingFile(RockWave,Codejock,selectedVersion,path);
+            sc.editingFile(RockWave,Codejock,selectedVersion,RogueWavepath,CodeJockpath,Xceed);
             File.AppendAllText("log.txt", "Updated Microsoft.cpp files  ! \r\n");
+            sc.Update_MSBUILD(RockWave, Codejock, selectedVersion, RogueWavepath, CodeJockpath);
+            }
 
         }
 
@@ -124,11 +199,11 @@ namespace MyUI.viewmodels
         private void getList()
         {
             list = new ReactiveList<LongView>();
-            list.Add(new LongView() { RockWave = "Rogue Wave\\Stingray Studio 12.1", CodejockWave = "Codejock Software\\MFC\\Xtreme ToolkitPro v17.3.0", Version = 7530 });
-            list.Add(new LongView() { RockWave = "Rogue Wave\\Stingray Studio 2006vc120", CodejockWave = "Codejock Software\\MFC\\Xtreme ToolkitPro v16.4.0", Version = 7500 });
-            list.Add(new LongView() { RockWave = "Rogue Wave\\Stingray Studio 2006vc100", CodejockWave = "Codejock Software\\MFC\\Xtreme ToolkitPro v15.2.1", Version = 7400 });
-            list.Add(new LongView() { RockWave = "Rogue Wave\\Stingray Studio 2006vc100", CodejockWave = "Codejock Software\\MFC\\Xtreme ToolkitPro v15.2.1", Version = 7300 });
-            list.Add(new LongView() { RockWave = "Rogue Wave\\Stingray Studio 2006vc100", CodejockWave = "Codejock Software\\MFC\\Xtreme ToolkitPro v13.3.1", Version = 7200 });
+            list.Add(new LongView() { RockWave = "Stingray Studio 12.1", CodejockWave = "Xtreme ToolkitPro v17.3.0", Version = 7530 });
+            list.Add(new LongView() { RockWave = "Stingray Studio 2006vc120", CodejockWave = "Xtreme ToolkitPro v16.4.0", Version = 7500 });
+            list.Add(new LongView() { RockWave = "Stingray Studio 2006vc100", CodejockWave = "Xtreme ToolkitPro v15.2.1", Version = 7400 });
+            list.Add(new LongView() { RockWave = "Stingray Studio 2006vc100", CodejockWave = "Xtreme ToolkitPro v15.2.1", Version = 7300 });
+            list.Add(new LongView() { RockWave = "Stingray Studio 2006vc100", CodejockWave = "Xtreme ToolkitPro v13.3.1", Version = 7200 });
         }
 
 
@@ -156,6 +231,20 @@ namespace MyUI.viewmodels
         public ReactiveCommand v5 { get; set; }
 
         public ReactiveCommand folderplus { get; set; }
+
+        public ReactiveCommand folderplus2 { get; set; }
+
+        public ReactiveCommand folderplus3 { get; set; }
+
+        public ReactiveCommand folderplus4 { get; set; }
+
+        public ReactiveCommand debug { get; set; }
+
+        public ReactiveCommand release { get; set; }
+
+
+
+
 
 
         

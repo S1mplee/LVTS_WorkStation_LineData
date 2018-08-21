@@ -57,6 +57,7 @@ C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\App.baml
 C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MainWindow.baml
 C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.g.resources
 C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.Properties.Resources.resources
-C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.csproj.GenerateResource.cache
+C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.csproj.GenerateResource.Cache
 C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.exe
 C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.pdb
+C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.csprojResolveAssemblyReference.cache

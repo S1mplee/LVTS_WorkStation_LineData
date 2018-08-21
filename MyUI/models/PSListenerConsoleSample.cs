@@ -87,11 +87,11 @@ namespace MyUI.models
            
             ConsoleColor oldFg = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("    PowerShell Console Host For Building LongView");
-            Console.WriteLine("    =====================================");
+            Console.WriteLine("                                     PowerShell Console Host For Building LongView");
+            Console.WriteLine("                                         =====================================");
             Console.WriteLine(string.Empty);
-            Console.WriteLine("In Order To Run the Script You have To type Build.ps1 !");
-            Console.WriteLine("engine to interpret commands. Type 'exit' to exit.");
+            Console.WriteLine("                                   In Order To Run the Script You have To type Build.ps1 !");
+            Console.WriteLine("                                   engine to interpret commands. Type 'exit' to exit.");
             Console.WriteLine(string.Empty);
             Console.ForegroundColor = oldFg;
 
@@ -301,6 +301,7 @@ namespace MyUI.models
             // and exit with the desired exit code that was set by exit command.
             // This is set in the host by the MyHost.SetShouldExit() implementation.
             Environment.Exit(this.ExitCode);
+            
         }
     }
 }
