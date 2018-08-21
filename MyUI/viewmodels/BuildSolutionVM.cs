@@ -21,6 +21,11 @@ namespace MyUI.viewmodels
         private string _Xceed;
         public string Xceed { get { return _Xceed; } set { this.RaiseAndSetIfChanged(ref _Xceed, value); } }
 
+        private int _Selectedsolution;
+        public int Selectedsolution { get { return _Selectedsolution; } set { this.RaiseAndSetIfChanged(ref _Selectedsolution, value); } }
+
+        private string _Solution;
+        public string Solution { get { return _Solution; } set { this.RaiseAndSetIfChanged(ref _Solution, value); } }
 
         private string _CodeJockpath;
         public string CodeJockpath { get { return _CodeJockpath; } set { this.RaiseAndSetIfChanged(ref _CodeJockpath, value); } }
@@ -43,19 +48,22 @@ namespace MyUI.viewmodels
         {
             selected = 0;
             selectedVersion = 7530;
+            Selectedsolution = 1;
             Mode = "Debug";
             getList();
+            Solution = Solutionlist[1];
             RockWave = list[0].RockWave;
             Codejock = list[0].CodejockWave;
             // Buttons (Clean / Build )
             Build = BuildCommand();
             Clean = CleanCommand();
+            Configure = ConfigureCommand();
             // selected Items of versions !
-            v2 = changeSelectedItem(1,7500);
-            v1 = changeSelectedItem(0,7530);
-            v3 = changeSelectedItem(2,7400);
-            v4 = changeSelectedItem(3,7300);
-            v5 = changeSelectedItem(4,7200);
+            v2 = changeSelectedItem(1,7500,0);
+            v1 = changeSelectedItem(0,7530,1);
+            v3 = changeSelectedItem(2,7400,0);
+            v4 = changeSelectedItem(3,7300,0);
+            v5 = changeSelectedItem(4,7200,0);
             // folder path
             folderplus = getpath1();
             folderplus2 = getpath2();
@@ -63,6 +71,14 @@ namespace MyUI.viewmodels
             folderplus4 = getpath4();
             debug = changeToDebug();
             release = changeToRelease();
+        }
+
+        private ReactiveCommand ConfigureCommand()
+        {
+            return ReactiveCommand.Create(() =>
+            {
+                ExecuteBuild();
+            });
         }
 
         private ReactiveCommand changeToRelease()
@@ -131,9 +147,11 @@ namespace MyUI.viewmodels
             });
         }
         // change the selected items in the combo box
-        private ReactiveCommand changeSelectedItem(int p,int version)
+        private ReactiveCommand changeSelectedItem(int p,int version,int s)
         {
             return ReactiveCommand.Create(() => { selected = p;
+            Selectedsolution = s;
+            Solution = Solutionlist[s];
             selectedVersion = version;
             RockWave = list[p].RockWave;
             Codejock = list[p].CodejockWave;
@@ -152,34 +170,34 @@ namespace MyUI.viewmodels
         {
             return ReactiveCommand.Create(() => {
 
-                ExecuteBuild();
+                
             });
         }
 
         private void ExecuteBuild()
         {
             File.AppendAllText("log.txt", " << Building Project V : " + selectedVersion + " >> \r\n");
-            if (!sc.IsValidPath(@LongViewpath) )
+            if (!sc.IsValidPath(@LongViewpath))
             {
                 File.AppendAllText("log.txt", "Folder does Not Existe \r\n");
-                MessageBox.Show("Folder does Not Existe");
+                MessageBox.Show("LongView Path is Not Valid");
             }
             else if (!sc.IsValidPath(@RogueWavepath)) {
                 File.AppendAllText("log.txt", "MISSING ROGUE WAVE ! \r\n");
                 MessageBox.Show("MISSING ROGUE WAVE !");
             }
             else if (!sc.IsValidPath(@CodeJockpath+"\\"+Codejock)) {
-                File.AppendAllText("log.txt", "MISSING Codejock Software ! \r\n");
-                MessageBox.Show("MISSING Codejock Software !");
+                File.AppendAllText("log.txt", "Codejock Software path Not Valid \r\n");
+                MessageBox.Show("MISSING Codejock Software Are you missing \\MFC ? ! !");
             }
             else if (!sc.IsValidPath("C:\\Users\\"+Environment.UserName+"\\AppData\\Local\\Microsoft\\MSBuild\\v4.0")) {
                 File.AppendAllText("log.txt", "MISSING Visual Studio Build tools (2013)! \r\n");
                 MessageBox.Show("MISSING MISSING Visual Studio Build tools !");
-            }/*
+            }
            else if (!sc.PerlVerif()) {
                 File.AppendAllText("log.txt", "MISSING Perl! \r\n");
                 MessageBox.Show("You need to install Perl !");
-            }*/
+            }
             else
             {
 
@@ -188,6 +206,7 @@ namespace MyUI.viewmodels
             sc.editingFile(RockWave,Codejock,selectedVersion,RogueWavepath,CodeJockpath,Xceed);
             File.AppendAllText("log.txt", "Updated Microsoft.cpp files  ! \r\n");
             sc.Update_MSBUILD(RockWave, Codejock, selectedVersion, RogueWavepath, CodeJockpath);
+            MessageBox.Show("Machine Configurated ! ");
             }
 
         }
@@ -204,6 +223,13 @@ namespace MyUI.viewmodels
             list.Add(new LongView() { RockWave = "Stingray Studio 2006vc100", CodejockWave = "Xtreme ToolkitPro v15.2.1", Version = 7400 });
             list.Add(new LongView() { RockWave = "Stingray Studio 2006vc100", CodejockWave = "Xtreme ToolkitPro v15.2.1", Version = 7300 });
             list.Add(new LongView() { RockWave = "Stingray Studio 2006vc100", CodejockWave = "Xtreme ToolkitPro v13.3.1", Version = 7200 });
+
+            Solutionlist = new ReactiveList<string>();
+            Solutionlist.Add("LVTradingSystem10.sln");
+            Solutionlist.Add("Shared.sln");
+            Solutionlist.Add("Server.sln");
+            Solutionlist.Add("Client.sln");
+
         }
 
 
@@ -215,6 +241,9 @@ namespace MyUI.viewmodels
         public string resultat { get { return _resultat; } set { this.RaiseAndSetIfChanged(ref _resultat, value); } }
 
         public ReactiveList<LongView> list { get; set; }
+
+        public ReactiveList<string> Solutionlist { get; set; }
+
 
         public ReactiveCommand Build { get; set; }
 
@@ -241,6 +270,9 @@ namespace MyUI.viewmodels
         public ReactiveCommand debug { get; set; }
 
         public ReactiveCommand release { get; set; }
+
+        public ReactiveCommand Configure { get; set; }
+
 
 
 

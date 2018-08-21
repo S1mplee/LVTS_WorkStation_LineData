@@ -165,11 +165,15 @@ namespace MyUI.models
 
             const string name = "PATH";
             string url = Rockwavepath1 + ";" + Rockwavepath2 + ";" + CodjocksoftwarePath;
-            Console.WriteLine(url);
-            string pathvar = System.Environment.GetEnvironmentVariable(name);
-            var value = pathvar + @";" + url;
             var target = EnvironmentVariableTarget.User;
-            System.Environment.SetEnvironmentVariable(name, value, target);
+            string pathvar = System.Environment.GetEnvironmentVariable(name,target);
+            if (!pathvar.Contains(url)) { 
+                var value = pathvar + @";" + url;
+
+                System.Environment.SetEnvironmentVariable(name, value,target);
+            }
+            
+           
 
         }
 

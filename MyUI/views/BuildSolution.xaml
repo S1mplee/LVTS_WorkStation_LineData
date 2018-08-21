@@ -13,7 +13,7 @@
      FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:MetroChart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
              mc:Ignorable="d" 
-             d:DesignHeight="900" d:DesignWidth="850">
+             d:DesignHeight="950" d:DesignWidth="950">
 
     <UserControl.Resources>
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
@@ -292,7 +292,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Label FontWeight="Bold" Margin="15">CodeJock Path :</Label>
 
-                        <TextBox Margin="10 0 0 0" Padding="2" Text="{Binding CodeJockpath}" Width="400"></TextBox>
+                        <TextBox Margin="13 0 0 0" Padding="2" Text="{Binding CodeJockpath}" Width="400"></TextBox>
                         <Button Command="{Binding folderplus3}" Margin="150 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                             ToolTip="MaterialDesignFloatingActionMiniLightButton">
                             <materialDesign:PackIcon Kind="FolderPlus" Height="24" Width="24" />
@@ -301,22 +301,34 @@
                     <StackPanel Orientation="Horizontal">
                         <Label FontWeight="Bold" Margin="15">Xceed Path :</Label>
 
-                        <TextBox Margin="10 0 0 0" Padding="2" Text="{Binding Xceed}" Width="400"></TextBox>
+                        <TextBox Margin="35 0 0 0" Padding="2" Text="{Binding Xceed}" Width="400"></TextBox>
                         <Button Command="{Binding folderplus4}" Margin="150 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                             ToolTip="MaterialDesignFloatingActionMiniLightButton">
                             <materialDesign:PackIcon Kind="FolderPlus" Height="24" Width="24" />
                         </Button>
                     </StackPanel>
                 </StackPanel>
+                <materialDesign:Card Padding="4" Margin="10">
+                    <Label FontStyle="Normal" FontWeight="Bold" Foreground="#FF41A43C" HorizontalAlignment="Center">The Solution :</Label>
+                </materialDesign:Card>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <ComboBox SelectedIndex="{Binding Selectedsolution}" Margin="10" Width="200" ItemsSource="{Binding Solutionlist}">
+                         
+                    </ComboBox>
+                </StackPanel>
                 <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
                     <Button Command="{Binding Path=Build}" Margin="10" Style="{StaticResource MaterialDesignRaisedAccentButton}" Width="100"
                         ToolTip="Resource name: MaterialDesignRaisedAccentButton">
-                        Build
+                        BuildScript
                     </Button>
-                    <Button Command="{Binding Path=Clean}" Margin="520 0 0 0" Style="{StaticResource MaterialDesignRaisedLightButton}" Width="100"
+                    <RepeatButton  Width="100" Margin="200 0 0 0" ToolTip="Resource name: MaterialDesignRaisedButton" Command="{Binding Configure}">
+                        Configure
+                    </RepeatButton>
+                    <Button Command="{Binding Path=Clean}" Margin="200 0 0 0" Style="{StaticResource MaterialDesignRaisedLightButton}" Width="110"
                         ToolTip="Resource name: MaterialDesignRaisedLightButton">
-                        Clean
+                        CleanScript
                     </Button>
+                   
                 </StackPanel>
             </StackPanel>
         </Grid>
