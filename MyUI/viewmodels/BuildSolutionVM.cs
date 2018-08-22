@@ -86,7 +86,6 @@ namespace MyUI.viewmodels
             return ReactiveCommand.Create(() =>
             {
                 Mode = "Release";
-                MessageBox.Show(Mode);
             });
         }
 
@@ -95,7 +94,6 @@ namespace MyUI.viewmodels
             return ReactiveCommand.Create(() =>
             {
                 Mode = "Debug";
-                MessageBox.Show(Mode);
             });
         }
 
@@ -162,16 +160,45 @@ namespace MyUI.viewmodels
         private ReactiveCommand CleanCommand()
         {
             return ReactiveCommand.Create(() => {
+                CleanScript();
                
             });
+        }
+
+        private void CleanScript()
+        {
+            if (!sc.IsValidPath(@LongViewpath))
+            {
+                MessageBox.Show("LongView Path is Not Valid");
+            }
+            else
+            {
+
+                sc.CreateScript(Mode, "Clean", LongViewpath, Solution, selectedVersion);
+                MessageBox.Show("Script Created ! ");
+            }
         }
         // Build Implementation
         private ReactiveCommand BuildCommand()
         {
             return ReactiveCommand.Create(() => {
 
-                
+                BuildScript();
             });
+        }
+
+        private void BuildScript()
+        {
+            if (!sc.IsValidPath(@LongViewpath))
+            {
+                MessageBox.Show("LongView Path is Not Valid");
+            }
+            else
+            {
+
+                sc.CreateScript(Mode, "Build", LongViewpath, Solution, selectedVersion);
+                MessageBox.Show("Script Created ! ");
+            }
         }
 
         private void ExecuteBuild()

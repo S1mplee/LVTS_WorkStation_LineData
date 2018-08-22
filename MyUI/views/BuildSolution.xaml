@@ -312,7 +312,7 @@
                     <Label FontStyle="Normal" FontWeight="Bold" Foreground="#FF41A43C" HorizontalAlignment="Center">The Solution :</Label>
                 </materialDesign:Card>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <ComboBox SelectedIndex="{Binding Selectedsolution}" Margin="10" Width="200" ItemsSource="{Binding Solutionlist}">
+                    <ComboBox SelectedIndex="{Binding Selectedsolution}" SelectedItem="{Binding Solution}" Margin="10" Width="200" ItemsSource="{Binding Solutionlist}">
                          
                     </ComboBox>
                 </StackPanel>

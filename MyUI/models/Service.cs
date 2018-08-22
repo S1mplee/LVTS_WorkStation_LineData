@@ -177,6 +177,64 @@ namespace MyUI.models
 
         }
 
+        public void CreateScript(string mode,string config,string longviewpath,string solution,int version)
+        {
+            List<string> script = new List<string>();
+            /*
+             var target = Argument("target", "Default");
+
+              Task("Default")
+              .Does(() =>
+       {
+          MSBuild(@"C:\Users\MSI\source\repos\DeglaMan\DeglaMan.sln", new MSBuildSettings()
+              .UseToolVersion(MSBuildToolVersion.VS2013)
+	          .SetConfiguration("Debug")
+              .WithTarget("Build")
+              .AddFileLogger(new MSBuildFileLogger {
+        LogFile = "./log.txt",
+        MSBuildFileLoggerOutput = MSBuildFileLoggerOutput.ErrorsOnly,
+        PerformanceSummaryEnabled = true,
+        AppendToLogFile	= true		
+        }));
+
+         });
+
+        RunTarget(target);
+             */
+            script.Add("var target = Argument(\"target\", \"Default\");");
+            script.Add("Task(\"Default\")");
+            script.Add("              .Does(() =>");
+            script.Add("{");
+            var path = Path.Combine(longviewpath, solution);
+            string VSTools=String.Empty;
+            if (version > 7300)
+            {
+                VSTools = "VS2013";
+            }
+            else
+            {
+                VSTools = "VS2010";
+            }
+            script.Add("MSBuild(@\"" + path + "\", new MSBuildSettings() ");
+            script.Add(".UseToolVersion(MSBuildToolVersion."+VSTools+")");
+            script.Add(".SetConfiguration(\"" + mode + "\")");
+            if (version < 7530)
+            {
+                script.Add(".SetPlatformTarget(PlatformTarget.Win32)");
+            }
+            script.Add(".WithTarget(\""+config+"\")");
+            script.Add(".AddFileLogger(new MSBuildFileLogger {");
+            script.Add("LogFile = \"./log.txt\",");
+            script.Add("MSBuildFileLoggerOutput = MSBuildFileLoggerOutput.ErrorsOnly,");
+            script.Add(" PerformanceSummaryEnabled = true,");
+            script.Add("AppendToLogFile	= true");
+            script.Add("}));");
+            script.Add("  });");
+            script.Add("    RunTarget(target);");
+
+            File.WriteAllLines("build.cake", script);
+
+        }
        
 
         public bool IsValidPath(string path)
