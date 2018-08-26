@@ -3,8 +3,10 @@ using ReactiveUI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reactive;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -56,7 +58,7 @@ namespace MyUI.viewmodels
             Codejock = list[0].CodejockWave;
             // Buttons (Clean / Build )
             Build = BuildCommand();
-            Clean = CleanCommand();
+            Clean = ExecuteBuilde();
             Configure = ConfigureCommand();
             // selected Items of versions !
             v2 = changeSelectedItem(1,7500,0);
@@ -71,6 +73,16 @@ namespace MyUI.viewmodels
             folderplus4 = getpath4();
             debug = changeToDebug();
             release = changeToRelease();
+        }
+
+        private ReactiveCommand<Unit, Unit> ExecuteBuilde()
+        {
+            return ReactiveCommand.Create(() =>
+            {
+                PSListenerConsoleSample scc = new PSListenerConsoleSample();
+                ConsoleManager.Show();
+                scc.RuningPowerShell();
+            });
         }
 
         private ReactiveCommand ConfigureCommand()
@@ -160,8 +172,10 @@ namespace MyUI.viewmodels
         private ReactiveCommand CleanCommand()
         {
             return ReactiveCommand.Create(() => {
-                CleanScript();
-               
+              //  CleanScript();
+                PSListenerConsoleSample scc = new PSListenerConsoleSample();
+                ConsoleManager.Show();
+                scc.RuningPowerShell();
             });
         }
 
@@ -274,7 +288,7 @@ namespace MyUI.viewmodels
 
         public ReactiveCommand Build { get; set; }
 
-        public  ReactiveCommand Clean { get; set; }
+        public ReactiveCommand <Unit,Unit> Clean { get; private set; }
 
         public ReactiveCommand v1 { get; set; }
 

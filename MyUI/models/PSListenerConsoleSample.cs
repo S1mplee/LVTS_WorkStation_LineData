@@ -300,7 +300,7 @@ namespace MyUI.models
 
             // and exit with the desired exit code that was set by exit command.
             // This is set in the host by the MyHost.SetShouldExit() implementation.
-            Environment.Exit(this.ExitCode);
+           Environment.Exit(this.ExitCode);
             
         }
     }

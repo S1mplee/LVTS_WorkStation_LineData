@@ -2,6 +2,7 @@
 using MyUI.viewmodels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,12 +42,8 @@ namespace MyUI
         private void Button_ClickAsync(object sender, RoutedEventArgs e)
         {
 
-           
-                PSListenerConsoleSample scc = new PSListenerConsoleSample();
-                ConsoleManager.Show();
-                scc.RuningPowerShell();
-           
-           
+
+            Process.Start("ConsoleEdit.exe");         
               
         }
     }

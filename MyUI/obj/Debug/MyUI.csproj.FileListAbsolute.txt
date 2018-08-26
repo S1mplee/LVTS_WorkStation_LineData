@@ -60,4 +60,7 @@ C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.Properties.Resources.resour
 C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.csproj.GenerateResource.Cache
 C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.exe
 C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.pdb
-C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.csprojResolveAssemblyReference.cache
+C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\bin\Debug\System.Management.Automation.dll
+C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.csprojAssemblyReference.cache
+C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.csproj.CoreCompileInputs.cache
+C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.csproj.CopyComplete
