@@ -172,10 +172,16 @@ namespace MyUI.viewmodels
         private ReactiveCommand CleanCommand()
         {
             return ReactiveCommand.Create(() => {
-              //  CleanScript();
-                PSListenerConsoleSample scc = new PSListenerConsoleSample();
-                ConsoleManager.Show();
-                scc.RuningPowerShell();
+                try
+                {
+                    CleanScript();
+                }
+                catch (Exception ex)
+                {
+                    File.AppendAllText("log.txt", ex.ToString());
+                    MessageBox.Show(ex.ToString());
+                }
+               
             });
         }
 
@@ -203,51 +209,75 @@ namespace MyUI.viewmodels
 
         private void BuildScript()
         {
-            if (!sc.IsValidPath(@LongViewpath))
-            {
-                MessageBox.Show("LongView Path is Not Valid");
-            }
-            else
+            try
             {
 
-                sc.CreateScript(Mode, "Build", LongViewpath, Solution, selectedVersion);
-                MessageBox.Show("Script Created ! ");
+
+                if (!sc.IsValidPath(@LongViewpath))
+                {
+                    MessageBox.Show("LongView Path is Not Valid");
+                }
+                else
+                {
+
+                    sc.CreateScript(Mode, "Build", LongViewpath, Solution, selectedVersion);
+                    MessageBox.Show("Script Created ! ");
+                }
+            }
+            catch (Exception ex)
+            {
+                File.AppendAllText("log.txt", ex.ToString());
+                MessageBox.Show(ex.ToString());
             }
         }
 
         private void ExecuteBuild()
         {
-            File.AppendAllText("log.txt", " << Building Project V : " + selectedVersion + " >> \r\n");
-            if (!sc.IsValidPath(@LongViewpath))
+            try
             {
-                File.AppendAllText("log.txt", "Folder does Not Existe \r\n");
-                MessageBox.Show("LongView Path is Not Valid");
-            }
-            else if (!sc.IsValidPath(@RogueWavepath)) {
-                File.AppendAllText("log.txt", "MISSING ROGUE WAVE ! \r\n");
-                MessageBox.Show("MISSING ROGUE WAVE !");
-            }
-            else if (!sc.IsValidPath(@CodeJockpath+"\\"+Codejock)) {
-                File.AppendAllText("log.txt", "Codejock Software path Not Valid \r\n");
-                MessageBox.Show("MISSING Codejock Software Are you missing \\MFC ? ! !");
-            }
-            else if (!sc.IsValidPath("C:\\Users\\"+Environment.UserName+"\\AppData\\Local\\Microsoft\\MSBuild\\v4.0")) {
-                File.AppendAllText("log.txt", "MISSING Visual Studio Build tools (2013)! \r\n");
-                MessageBox.Show("MISSING MISSING Visual Studio Build tools !");
-            }
-           else if (!sc.PerlVerif()) {
-                File.AppendAllText("log.txt", "MISSING Perl! \r\n");
-                MessageBox.Show("You need to install Perl !");
-            }
-            else
-            {
+                File.AppendAllText("log.txt", " << Building Project V : " + selectedVersion + " >> \r\n");
+                if (!sc.IsValidPath(@LongViewpath))
+                {
+                    File.AppendAllText("log.txt", "Folder does Not Existe \r\n");
+                    MessageBox.Show("LongView Path is Not Valid");
+                }
+                else if (!sc.IsValidPath(@RogueWavepath))
+                {
+                    File.AppendAllText("log.txt", "MISSING ROGUE WAVE ! \r\n");
+                    MessageBox.Show("MISSING ROGUE WAVE !");
+                }
+                else if (!sc.IsValidPath(@CodeJockpath + "\\" + Codejock))
+                {
+                    File.AppendAllText("log.txt", "Codejock Software path Not Valid \r\n");
+                    MessageBox.Show("MISSING Codejock Software Are you missing \\MFC ? ! !");
+                }
+                else if (!sc.IsValidPath("C:\\Users\\" + Environment.UserName + "\\AppData\\Local\\Microsoft\\MSBuild\\v4.0"))
+                {
+                    File.AppendAllText("log.txt", "MISSING Visual Studio Build tools (2013)! \r\n");
+                    MessageBox.Show("MISSING MISSING Visual Studio Build tools !");
+                }
+                else if (!sc.PerlVerif())
+                {
+                    File.AppendAllText("log.txt", "MISSING Perl! \r\n");
+                    MessageBox.Show("You need to install Perl !");
+                }
+                else
+                {
 
-           
-            File.AppendAllText("log.txt", "Updated Path Environement ! \r\n");
-            sc.editingFile(RockWave,Codejock,selectedVersion,RogueWavepath,CodeJockpath,Xceed);
-            File.AppendAllText("log.txt", "Updated Microsoft.cpp files  ! \r\n");
-            sc.Update_MSBUILD(RockWave, Codejock, selectedVersion, RogueWavepath, CodeJockpath);
-            MessageBox.Show("Machine Configurated ! ");
+
+                    File.AppendAllText("log.txt", "Updated Path Environement ! \r\n");
+                    sc.editingFile(RockWave, Codejock, selectedVersion, RogueWavepath, CodeJockpath, Xceed);
+                    File.AppendAllText("log.txt", "Updated Microsoft.cpp files  ! \r\n");
+                    sc.Update_MSBUILD(RockWave, Codejock, selectedVersion, RogueWavepath, CodeJockpath);
+                    MessageBox.Show("Machine Configurated ! ");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                                        File.AppendAllText("log.txt", ex.ToString());
+
+                
             }
 
         }

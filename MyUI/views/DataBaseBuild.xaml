@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
      TextElement.FontWeight="Regular"
      TextElement.FontSize="13"
@@ -13,8 +13,177 @@
      FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:MetroChart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="850">
-    <Grid Grid.Column="1">
+             d:DesignHeight="950" d:DesignWidth="950">
+
+    <UserControl.Resources>
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Border
+                  x:Name="Border" 
+                  Grid.ColumnSpan="2"
+                  CornerRadius="0"
+                  Background="#FF3F3F3F"
+                  BorderBrush="#FF97A0A5"
+                  BorderThickness="1" />
+                <Border 
+                  Grid.Column="0"
+                  CornerRadius="0" 
+                  Margin="1" 
+                  Background="#FF3F3F3F" 
+                  BorderBrush="#FF97A0A5"
+                  BorderThickness="0,0,1,0" />
+                <Path 
+                  x:Name="Arrow"
+                  Grid.Column="1"     
+                  Fill="White"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
+                />
+            </Grid>
+            <!--<ControlTemplate.Triggers>
+            <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="#808080" />
+            </Trigger>
+            <Trigger Property="ToggleButton.IsChecked" Value="true">
+                <Setter TargetName="Border" Property="Background" Value="#E0E0E0" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Border" Property="Background" Value="#EEEEEE" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="#AAAAAA" />
+                <Setter Property="Foreground" Value="#888888"/>
+                <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
+            </Trigger>
+        </ControlTemplate.Triggers>-->
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+            <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+        </ControlTemplate>
+
+        <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <ToggleButton 
+                            Name="ToggleButton" 
+                            Template="{StaticResource ComboBoxToggleButton}" 
+                            Grid.Column="2" 
+                            Focusable="false"
+                            IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                            ClickMode="Press">
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                            Margin="3,3,23,3"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left" />
+                            <TextBox x:Name="PART_EditableTextBox"
+                            Style="{x:Null}" 
+                            Template="{StaticResource ComboBoxTextBox}" 
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Center" 
+                            Margin="3,3,23,3"
+                            Focusable="True" 
+                            Background="#a13131"
+                            Foreground="Green"
+                            Visibility="Hidden"
+                            IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup 
+                            Name="Popup"
+                            Placement="Bottom"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            AllowsTransparency="True" 
+                            Focusable="False"
+                            PopupAnimation="Slide">
+
+                                <Grid Name="DropDown"
+                              SnapsToDevicePixels="True"                
+                              MinWidth="{TemplateBinding ActualWidth}"
+                              MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border 
+                                x:Name="DropDownBorder"
+                                Background="#a13131"
+
+                                BorderThickness="1"
+                                BorderBrush="#888888"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#888888"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0"/>
+                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsEditable"  Value="true">
+                                <Setter Property="IsTabStop" Value="false"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+            </Style.Triggers>
+        </Style>
+
+        <!-- SimpleStyles: ComboBoxItem -->
+        <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border Name="Border"
+                              Padding="2"
+                              SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#FF4F4F4F"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#888888"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+
+    <!-- View-->
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="4*"></RowDefinition>
@@ -27,7 +196,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
 
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Background="Azure" Margin="10">
+            <Grid Grid.Column="0" Background="#f0f8ff" Margin="10">
                 <Grid Width="35" Height="50" Background="#FFFFAF24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
                     <Grid.Effect>
                         <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
@@ -35,10 +204,10 @@
                     <materialDesign:PackIcon Kind="ContentCopy" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
                 </Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 20">
-                    <TextBlock Text="DataBase" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="40"/>
+                    <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}" Text="DataBase" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="40"/>
                 </StackPanel>
             </Grid>
-            <Grid Grid.Column="1" Background="Azure" Margin="10">
+            <Grid Grid.Column="1" Background="#f0f8ff" Margin="10">
                 <Grid Width="35" Height="50" Background="#FF41A43C" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
                     <Grid.Effect>
                         <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
@@ -46,27 +215,92 @@
                     <materialDesign:PackIcon Kind="Store" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
                 </Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 20">
-                    <TextBlock Text="Build" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="40"/>
+                    <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}" Text="Build" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="40"/>
+
                 </StackPanel>
             </Grid>
-            <Grid Grid.Column="2" Background="Azure" Margin="10">
+            <Grid Grid.Column="2" Background="#f0f8ff" Margin="10">
                 <Grid Width="35" Height="50" Background="#FFCF1F1F" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
                     <Grid.Effect>
                         <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
                     </Grid.Effect>
                     <materialDesign:PackIcon Kind="InformationOutline" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
                 </Grid>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 20">
-                    <TextBlock Text="Errors" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="40"/>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 30">
-                        <TextBlock Text="75" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="15"/>
-                    </StackPanel>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 20">
+                    <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="10" FontWeight="Bold" Text="Mode  :" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="15" Width="129"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 20">
+                    <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="10" FontWeight="Bold" Text="Mode  :" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="15" Width="129"/>
+                    <RadioButton IsChecked="True"   FontWeight="SemiBold" Margin="5" Foreground="Green"  Content="Mode 0" Command="{Binding first}"/>
+                    <RadioButton BorderBrush="Green" FontWeight="SemiBold" Margin="5"  Foreground="Red" Content="Mode 1" Command="{Binding second}"/>
+                    <RadioButton BorderBrush="Green" FontWeight="SemiBold" Margin="5" Foreground="BlueViolet" Content="Mode 2" Command="{Binding third}"/>
+
                 </StackPanel>
             </Grid>
 
         </Grid>
-        <Grid Grid.Row="1" Margin="50" Background="Azure">
+        <Grid Grid.Row="1" Margin="50" Background="#f0f8ff">
+            <StackPanel>
+                <materialDesign:Card Padding="4" Margin="0 100 0 0">
+                    <Label FontStyle="Normal" FontWeight="Bold" Foreground="#FF41A43C" HorizontalAlignment="Center">Choose the Version :</Label>
+                </materialDesign:Card>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <RadioButton Command="{Binding Path=v1}" FontWeight="Bold" Margin="10" IsChecked="True">V:75.3.0</RadioButton>
+                    <RadioButton Command="{Binding Path=v2}" FontWeight="Bold" Margin="10">V:75.0.0</RadioButton>
+                    <RadioButton Command="{Binding Path=v3}" FontWeight="Bold" Margin="10">V:74.0.0</RadioButton>
+                    <RadioButton Command="{Binding Path=v4}" FontWeight="Bold" Margin="10">V:73.0.0</RadioButton>
+                    <RadioButton Command="{Binding Path=v5}" FontWeight="Bold" Margin="10">V:72.0.0</RadioButton>
 
+                </StackPanel>
+                <materialDesign:Card Padding="4">
+                    <Label FontStyle="Normal" Foreground="#FF41A43C" FontWeight="Bold" HorizontalAlignment="Center">SQL Server Param :</Label>
+                </materialDesign:Card>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Margin="50 0 0 0">
+                        <Label FontStyle="Normal" Margin="10" Foreground="#FFCF1F1F" FontWeight="Bold" HorizontalAlignment="Center">Server :</Label>
+                        <TextBox Width="250" Margin="10" Text="{Binding Server}"/>
+                    </StackPanel>
+                    <StackPanel Margin="220 0 0 0">
+                        <Label FontStyle="Normal" Margin="10" Foreground="#FFCF1F1F" FontWeight="Bold" HorizontalAlignment="Center">Username :</Label>
+                        <TextBox Width="250" Text="{Binding Username}"/>
+                    </StackPanel>
+                </StackPanel>
+                <materialDesign:Card Padding="4">
+                    <Label FontStyle="Normal" Foreground="#FF41A43C" FontWeight="Bold" HorizontalAlignment="Center">Path Where You Downloaded the Product :</Label>
+                </materialDesign:Card>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <Label FontWeight="Bold" Margin="15">LongView Path :</Label>
+                        <TextBox  Margin="10 0 0 0" Padding="2" Text="{Binding LongViewpath}" Width="400"></TextBox>
+                        <Button Command="{Binding folderplus}" Margin="150 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="MaterialDesignFloatingActionMiniLightButton">
+                            <materialDesign:PackIcon Kind="FolderPlus" Height="24" Width="24" />
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"/>
+                    <StackPanel Orientation="Horizontal"/>
+                    <StackPanel Orientation="Horizontal"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                <StackPanel Margin="0 200 0 0" Orientation="Horizontal">
+                    <Button Command="{Binding Path=Build}" Margin="80 0 0 0" Style="{StaticResource MaterialDesignRaisedAccentButton}" Width="100"
+                        ToolTip="Resource name: MaterialDesignRaisedAccentButton">
+                        BuildScript
+                    </Button>
+                    <RepeatButton  Width="100" Margin="80 0 0 0" ToolTip="Resource name: MaterialDesignRaisedButton" Command="{Binding CreateDB}">
+                        CreateDB
+                    </RepeatButton>
+                    <Button Command="{Binding Path=Clean}" Margin="80 0 0 0" Style="{StaticResource MaterialDesignRaisedLightButton}" Width="120"
+                        ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                        CleanOutPut
+                    </Button>
+                            <Button Command="{Binding Path=DataSource}" Margin="80 0 0 0" Style="{StaticResource MaterialDesignRaisedLightButton}" Width="120"
+                        ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                        DataSources
+                    </Button>
+
+                </StackPanel>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

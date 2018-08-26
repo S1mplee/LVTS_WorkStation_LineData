@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -207,7 +208,7 @@ namespace MyUI.models
             script.Add("{");
             var path = Path.Combine(longviewpath, solution);
             string VSTools=String.Empty;
-            if (version > 7300)
+            if (version > 7400)
             {
                 VSTools = "VS2013";
             }
@@ -218,9 +219,13 @@ namespace MyUI.models
             script.Add("MSBuild(@\"" + path + "\", new MSBuildSettings() ");
             script.Add(".UseToolVersion(MSBuildToolVersion."+VSTools+")");
             script.Add(".SetConfiguration(\"" + mode + "\")");
-            if (version < 7530)
+            if (version < 7530 || mode == "SQL_APPLY_MSFT")
             {
                 script.Add(".SetPlatformTarget(PlatformTarget.Win32)");
+            }
+            else
+            {
+                script.Add(".SetPlatformTarget(PlatformTarget.x64)");
             }
             script.Add(".WithTarget(\""+config+"\")");
             script.Add(".AddFileLogger(new MSBuildFileLogger {");
@@ -251,6 +256,127 @@ namespace MyUI.models
             }
 
             return isValid;
+        }
+
+        public void CreationDB(string username,string server,string version) {
+            string connectionString = "Server="+server+";uid="+username+";pwd=;database=master;Trusted_Connection=Yes;Integrated Security=SSPI";
+
+
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandText = "CREATE DATABASE conf"+version;
+                command.ExecuteNonQuery();
+                command.CommandText = "CREATE DATABASE gw" + version;
+                command.ExecuteNonQuery();
+                command.CommandText = "CREATE DATABASE mkt" + version;
+                command.ExecuteNonQuery();
+            }  
+
+        }
+
+        public void DataBaseScript(string longviewpath,string server,int mode,string version)
+        {
+            List<string> list = new List<string>();
+            string DB= String.Empty;
+            if (mode == 0)
+            {
+                DB = "conf" + version;
+            }
+            else if (mode == 1)
+            {
+                DB = "mkt" + version;
+            }
+            else
+            {
+                DB = "gw" + version;
+            }
+            list.Add("BUILD_TYPE=" + mode);
+            list.Add("REMOVE_COMMENTS=1");
+            list.Add("//Login information used when applying to a Microsoft SQL server database");
+            list.Add("SQL_APPLY_MSFT_version=SQL2014");
+            list.Add("SQL_APPLY_MSFT_database="+DB);
+            list.Add("SQL_APPLY_MSFT_server=" + server);
+            list.Add("SQL_APPLY_MSFT_user=");
+            list.Add("SQL_APPLY_MSFT_password=");
+            list.Add("//Login information used when applying to an Oracle database");
+            list.Add("SQL_APPLY_ORACLE_version=ORACLE10g");
+            list.Add("SQL_APPLY_ORACLE_server=bs1orc03");
+            list.Add("SQL_APPLY_ORACLE_user=lvts_compile");
+            list.Add("SQL_APPLY_ORACLE_password=lvts_compile");
+            list.Add("//Specifies names of sql files to be generated which can be applied to a database");
+            list.Add("SQL_BUILD_OUTPUT_ALL_Msft_Version=SQL2005");
+            list.Add("SQL_BUILD_OUTPUT_ALL_Oracle_Version=ORACLE10g");
+            list.Add("//Used for ConfigDB database");
+            list.Add("SQL_BUILD_OUTPUT_ALL_Msft_ConfigDB_File=msftConfigDB.sql");
+            list.Add("SQL_BUILD_OUTPUT_ALL_Oracle_ConfigDB_File=oracleConfigDB.sql");
+            list.Add("//Used for Reporting database");
+            list.Add("SQL_BUILD_OUTPUT_ALL_Msft_Reporting_File=msftReportingDB.sql");
+            list.Add("SQL_BUILD_OUTPUT_ALL_Oracle_Reporting_File=oracleReportingDB.sql");
+            list.Add("//Used for building LVTS Database");
+            list.Add("SQL_BUILD_OUTPUT_ALL_Msft_Build_File=msftBuild.sql");
+            list.Add("SQL_BUILD_OUTPUT_ALL_Oracle_Build_File=oracleBuild.sql");
+            list.Add("//Used for marketing data  \r\n SQL_BUILD_OUTPUT_ALL_Msft_Data_File=msftData.sql  \r\n SQL_BUILD_OUTPUT_ALL_Oracle_Data_File=oracleData.sql  \r\n //Used for stp - gwalloc  \r\n SQL_BUILD_OUTPUT_ALL_Msft_gwalloc_File=msftgwallc.sql  \r\n SQL_BUILD_OUTPUT_ALL_Oracle_gwalloc_File=oraclegwalloc.sql  \r\n //Used for stp - gwsrv  \r\n SQL_BUILD_OUTPUT_ALL_Msft_gwsrv_File=msftgwsrv.sql  \r\n SQL_BUILD_OUTPUT_ALL_Oracle_gwsrv_File=oraclegwsrv.sql  \r\n //Used for stp - ioisrv  \r\n SQL_BUILD_OUTPUT_ALL_Msft_ioisrv_File=msftioisrv.sql  \r\n SQL_BUILD_OUTPUT_ALL_Oracle_ioisrv_File=oracleioisrv.sql  \r\n //Used for stp - lqdnet  \r\n SQL_BUILD_OUTPUT_ALL_Msft_lqdnet_File=msftlqdnet.sql  \r\n SQL_BUILD_OUTPUT_ALL_Oracle_lqdnet_File=oraclelqdnet.sql  \r\n //Databases set up just for compiling and not testing  \r\n SQL_COMPILE_MSFT_version=SQL2005  \r\n SQL_COMPILE_MSFT_database=lvts_compile  \r\n SQL_COMPILE_MSFT_server=BS1SQL02\\SQL2K5  \r\n SQL_COMPILE_MSFT_user=  \r\n SQL_COMPILE_MSFT_password=  \r\n SQL_COMPILE_ORACLE_version=ORACLE10g  \r\n SQL_COMPILE_ORACLE_server=bs1orc03  \r\n SQL_COMPILE_ORACLE_user=lvts_compile  \r\n SQL_COMPILE_ORACLE_password=lvts_compile");
+            File.WriteAllLines(@longviewpath+"\\Database\\ConfigSqlVars\\SqlVars.txt",list);
+
+            /*
+            BUILD_TYPE=1
+
+REMOVE_COMMENTS=1
+            
+//Login information used when applying to a Microsoft SQL server database
+SQL_APPLY_MSFT_version=SQL2014
+SQL_APPLY_MSFT_database=mkt7530
+SQL_APPLY_MSFT_server=TN1PFE-46
+SQL_APPLY_MSFT_user=
+SQL_APPLY_MSFT_password=
+
+//Login information used when applying to an Oracle database
+SQL_APPLY_ORACLE_version=ORACLE10g
+SQL_APPLY_ORACLE_server=bs1orc03
+SQL_APPLY_ORACLE_user=lvts_compile
+SQL_APPLY_ORACLE_password=lvts_compile
+
+//Specifies names of sql files to be generated which can be applied to a database
+SQL_BUILD_OUTPUT_ALL_Msft_Version=SQL2005
+SQL_BUILD_OUTPUT_ALL_Oracle_Version=ORACLE10g
+//Used for ConfigDB database
+SQL_BUILD_OUTPUT_ALL_Msft_ConfigDB_File=msftConfigDB.sql
+SQL_BUILD_OUTPUT_ALL_Oracle_ConfigDB_File=oracleConfigDB.sql
+//Used for Reporting database
+SQL_BUILD_OUTPUT_ALL_Msft_Reporting_File=msftReportingDB.sql
+SQL_BUILD_OUTPUT_ALL_Oracle_Reporting_File=oracleReportingDB.sql
+//Used for building LVTS Database
+SQL_BUILD_OUTPUT_ALL_Msft_Build_File=msftBuild.sql
+SQL_BUILD_OUTPUT_ALL_Oracle_Build_File=oracleBuild.sql
+//Used for marketing data
+SQL_BUILD_OUTPUT_ALL_Msft_Data_File=msftData.sql
+SQL_BUILD_OUTPUT_ALL_Oracle_Data_File=oracleData.sql
+//Used for stp - gwalloc
+SQL_BUILD_OUTPUT_ALL_Msft_gwalloc_File=msftgwallc.sql
+SQL_BUILD_OUTPUT_ALL_Oracle_gwalloc_File=oraclegwalloc.sql
+//Used for stp - gwsrv
+SQL_BUILD_OUTPUT_ALL_Msft_gwsrv_File=msftgwsrv.sql
+SQL_BUILD_OUTPUT_ALL_Oracle_gwsrv_File=oraclegwsrv.sql
+//Used for stp - ioisrv
+SQL_BUILD_OUTPUT_ALL_Msft_ioisrv_File=msftioisrv.sql
+SQL_BUILD_OUTPUT_ALL_Oracle_ioisrv_File=oracleioisrv.sql
+//Used for stp - lqdnet
+SQL_BUILD_OUTPUT_ALL_Msft_lqdnet_File=msftlqdnet.sql
+SQL_BUILD_OUTPUT_ALL_Oracle_lqdnet_File=oraclelqdnet.sql
+
+//Databases set up just for compiling and not testing
+SQL_COMPILE_MSFT_version=SQL2005
+SQL_COMPILE_MSFT_database=lvts_compile
+SQL_COMPILE_MSFT_server=BS1SQL02\SQL2K5
+SQL_COMPILE_MSFT_user=
+SQL_COMPILE_MSFT_password=
+SQL_COMPILE_ORACLE_version=ORACLE10g
+SQL_COMPILE_ORACLE_server=bs1orc03
+SQL_COMPILE_ORACLE_user=lvts_compile
+SQL_COMPILE_ORACLE_password=lvts_compile
+            */
         }
     }
 }
