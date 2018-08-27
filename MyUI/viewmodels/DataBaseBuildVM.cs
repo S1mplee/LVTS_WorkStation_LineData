@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows;
 using System.Threading.Tasks;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace MyUI.viewmodels
 {
@@ -15,10 +16,16 @@ namespace MyUI.viewmodels
     {
         public Service sc;
         private string _selectedVersion;
+
+        private string _logfile;
         public string selectedVersion { get { return _selectedVersion; } set { this.RaiseAndSetIfChanged(ref _selectedVersion, value); } }
 
         private string _Username;
         public string Username { get { return _Username; } set { this.RaiseAndSetIfChanged(ref _Username, value); } }
+
+        private string _Sqlversion;
+        public string Sqlversion { get { return _Sqlversion; } set { this.RaiseAndSetIfChanged(ref _Sqlversion, value); } }
+
 
         private string _Server;
         public string Server { get { return _Server; } set { this.RaiseAndSetIfChanged(ref _Server, value); } }
@@ -33,9 +40,11 @@ namespace MyUI.viewmodels
         {
             try
             {
-                Server = String.Empty;
+                Server = System.Environment.MachineName;
                 Username = String.Empty;
+                _logfile = String.Empty;
                 sc = new Service();
+                Sqlversion = "2014";
                 selectedVersion = "7530";
                 Mode = 0;
                 v1 = VersionSelection("7530");
@@ -62,7 +71,8 @@ namespace MyUI.viewmodels
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-                File.AppendAllText("log.txt", ex.ToString());
+                File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+                File.AppendAllText(".\\logs\\" + _logfile + "log.txt", ex.ToString() + "\r\n");
                     
             }
 
@@ -74,14 +84,27 @@ namespace MyUI.viewmodels
             {
                 try
                 {
-
+                    if (_logfile == String.Empty)
+                    {
+                        DateTime d = DateTime.Today;
+                        var d2 = DateTime.Now;
+                        string d3 = d2.ToString();
+                        _logfile = Regex.Replace(d3, "/", "_");
+                        _logfile = Regex.Replace(_logfile, " ", "_");
+                        _logfile = Regex.Replace(_logfile, ":", "_");
+                    }
                     DirectoryInfo directory = new DirectoryInfo(@LongViewpath + "\\Database\\OutputFiles");
                     directory.GetFiles().ToList().ForEach(f => f.Delete());
                     MessageBox.Show("All FIles Are Deleted !");
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "Files Deleted From the outputFIles ! \r\n");
                     }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", ex.ToString() + "\r\n");
+
                 }
             });
         }
@@ -92,14 +115,26 @@ namespace MyUI.viewmodels
             {
                 try
                 {
-
+                    if (_logfile == String.Empty)
+                    {
+                        DateTime d = DateTime.Today;
+                        var d2 = DateTime.Now;
+                        string d3 = d2.ToString();
+                        _logfile = Regex.Replace(d3, "/", "_");
+                        _logfile = Regex.Replace(_logfile, " ", "_");
+                        _logfile = Regex.Replace(_logfile, ":", "_");
+                    }
                 
-                int d;
-                int.TryParse(selectedVersion,out d);
+                int dd;
+                int.TryParse(selectedVersion,out dd);
                 if (sc.IsValidPath(@LongViewpath + "\\Database"))
                 {
-                    sc.CreateScript("SQL_APPLY_MSFT","Build",LongViewpath,"Database.sln",d);
-                    sc.DataBaseScript(LongViewpath, Server, Mode,selectedVersion);
+                    sc.CreateScript("SQL_APPLY_MSFT", "Build", LongViewpath, "Database.sln", dd, ".\\logs\\" + _logfile + "log.txt");
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "VarVsql.txt Modified ! Mode : " + Mode + "\r\n");
+                    sc.DataBaseScript(LongViewpath, Server, Mode,selectedVersion,Sqlversion);
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+                    File.AppendAllText(".\\logs\\"+_logfile +"log.txt", "DataBase Build Script Created ! \r\n");
                 }
                 else
                 {
@@ -109,6 +144,8 @@ namespace MyUI.viewmodels
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", ex.ToString() + "\r\n");
                 }
             });
         }
@@ -129,15 +166,27 @@ namespace MyUI.viewmodels
         {
             return ReactiveCommand.Create(() =>
             {
-                try { 
-                
+                try {
+                    if (_logfile == String.Empty)
+                    {
+                        DateTime d = DateTime.Today;
+                        var d2 = DateTime.Now;
+                        string d3 = d2.ToString();
+                        var reducedString = Regex.Replace(d3, "/", "_");
+                        reducedString = Regex.Replace(reducedString, " ", "_");
+                        reducedString = Regex.Replace(reducedString, ":", "_");
+                    }
                 sc.CreationDB(Username, Server, selectedVersion);
+                File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+                File.AppendAllText(".\\logs\\" + _logfile + "log.txt", " DataBases Created For Version  \r\n"+selectedVersion);
+
                 MessageBox.Show("DataBase Created !");
                     }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
-                    File.AppendAllText("log.txt", ex.ToString());
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", ex.ToString() + "\r\n");
 
                 }
             });
@@ -149,14 +198,22 @@ namespace MyUI.viewmodels
             {
                 try
                 {
-
-                
+                    if (_logfile == String.Empty)
+                    {
+                        DateTime d = DateTime.Today;
+                        var d2 = DateTime.Now;
+                        string d3 = d2.ToString();
+                        _logfile = Regex.Replace(d3, "/", "_");
+                        _logfile = Regex.Replace(_logfile, " ", "_");
+                        _logfile = Regex.Replace(_logfile, ":", "_");
+                    }
                Process.Start(@"C:\Windows\System32\odbcad32.exe");
                     }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
-                    File.AppendAllText("log.txt", ex.ToString());
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", ex.ToString() + "\r\n");
 
                 }
             });

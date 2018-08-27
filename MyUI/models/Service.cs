@@ -178,7 +178,7 @@ namespace MyUI.models
 
         }
 
-        public void CreateScript(string mode,string config,string longviewpath,string solution,int version)
+        public void CreateScript(string mode,string config,string longviewpath,string solution,int version,string logfile)
         {
             List<string> script = new List<string>();
             /*
@@ -229,7 +229,7 @@ namespace MyUI.models
             }
             script.Add(".WithTarget(\""+config+"\")");
             script.Add(".AddFileLogger(new MSBuildFileLogger {");
-            script.Add("LogFile = \"./log.txt\",");
+            script.Add("LogFile = "+"@\""+logfile+"\",");
             script.Add("MSBuildFileLoggerOutput = MSBuildFileLoggerOutput.ErrorsOnly,");
             script.Add(" PerformanceSummaryEnabled = true,");
             script.Add("AppendToLogFile	= true");
@@ -276,7 +276,7 @@ namespace MyUI.models
 
         }
 
-        public void DataBaseScript(string longviewpath,string server,int mode,string version)
+        public void DataBaseScript(string longviewpath,string server,int mode,string version,string sql)
         {
             List<string> list = new List<string>();
             string DB= String.Empty;
@@ -295,7 +295,7 @@ namespace MyUI.models
             list.Add("BUILD_TYPE=" + mode);
             list.Add("REMOVE_COMMENTS=1");
             list.Add("//Login information used when applying to a Microsoft SQL server database");
-            list.Add("SQL_APPLY_MSFT_version=SQL2014");
+            list.Add("SQL_APPLY_MSFT_version=SQL"+sql);
             list.Add("SQL_APPLY_MSFT_database="+DB);
             list.Add("SQL_APPLY_MSFT_server=" + server);
             list.Add("SQL_APPLY_MSFT_user=");

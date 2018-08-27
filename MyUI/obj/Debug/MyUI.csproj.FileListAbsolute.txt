@@ -64,3 +64,6 @@ C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\bin\Debug\System.Management.Automation.dll
 C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.csprojAssemblyReference.cache
 C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.csproj.CoreCompileInputs.cache
 C:\Users\MSI\Downloads\MyUI\MyUI\MyUI\obj\Debug\MyUI.csproj.CopyComplete
+C:\Users\ABoumellessa\Desktop\app\MyUI\MyUI\bin\Debug\MyUI.exe.config
+C:\Users\ABoumellessa\Desktop\app\MyUI\MyUI\obj\Debug\MyUI.exe
+C:\Users\ABoumellessa\Desktop\app\MyUI\MyUI\obj\Debug\MyUI.pdb

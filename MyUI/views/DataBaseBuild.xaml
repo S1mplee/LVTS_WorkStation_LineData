@@ -231,9 +231,9 @@
                 </StackPanel>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 20">
                     <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="10" FontWeight="Bold" Text="Mode  :" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="15" Width="129"/>
-                    <RadioButton IsChecked="True"   FontWeight="SemiBold" Margin="5" Foreground="Green"  Content="Mode 0" Command="{Binding first}"/>
-                    <RadioButton BorderBrush="Green" FontWeight="SemiBold" Margin="5"  Foreground="Red" Content="Mode 1" Command="{Binding second}"/>
-                    <RadioButton BorderBrush="Green" FontWeight="SemiBold" Margin="5" Foreground="BlueViolet" Content="Mode 2" Command="{Binding third}"/>
+                    <RadioButton IsChecked="True"   FontWeight="SemiBold" Margin="5" Foreground="Green"  Content="Config" Command="{Binding first}"/>
+                    <RadioButton BorderBrush="Green" FontWeight="SemiBold" Margin="5"  Foreground="Red" Content="LongView" Command="{Binding second}"/>
+                    <RadioButton BorderBrush="Green" FontWeight="SemiBold" Margin="5" Foreground="BlueViolet" Content="GateWay" Command="{Binding third}"/>
 
                 </StackPanel>
             </Grid>
@@ -261,8 +261,8 @@
                         <TextBox Width="250" Margin="10" Text="{Binding Server}"/>
                     </StackPanel>
                     <StackPanel Margin="220 0 0 0">
-                        <Label FontStyle="Normal" Margin="10" Foreground="#FFCF1F1F" FontWeight="Bold" HorizontalAlignment="Center">Username :</Label>
-                        <TextBox Width="250" Text="{Binding Username}"/>
+                        <Label FontStyle="Normal" Margin="10" Foreground="#FFCF1F1F" FontWeight="Bold" HorizontalAlignment="Center">Sql Server Version :</Label>
+                        <TextBox Width="250" Text="{Binding Sqlversion}"/>
                     </StackPanel>
                 </StackPanel>
                 <materialDesign:Card Padding="4">

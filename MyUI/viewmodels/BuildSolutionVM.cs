@@ -194,7 +194,7 @@ namespace MyUI.viewmodels
             else
             {
 
-                sc.CreateScript(Mode, "Clean", LongViewpath, Solution, selectedVersion);
+                sc.CreateScript(Mode, "Clean", LongViewpath, Solution, selectedVersion,"");
                 MessageBox.Show("Script Created ! ");
             }
         }
@@ -220,7 +220,7 @@ namespace MyUI.viewmodels
                 else
                 {
 
-                    sc.CreateScript(Mode, "Build", LongViewpath, Solution, selectedVersion);
+                    sc.CreateScript(Mode, "Build", LongViewpath, Solution, selectedVersion,"");
                     MessageBox.Show("Script Created ! ");
                 }
             }
