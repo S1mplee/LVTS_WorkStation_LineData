@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 namespace MyUI.viewmodels
@@ -16,6 +17,8 @@ namespace MyUI.viewmodels
     {
         private string _LongViewpath;
         public string LongViewpath { get { return _LongViewpath; } set { this.RaiseAndSetIfChanged(ref _LongViewpath, value); } }
+
+        private string _logfile;
 
         private string _RogueWavepath;
         public string RogueWavepath { get { return _RogueWavepath; } set { this.RaiseAndSetIfChanged(ref _RogueWavepath, value); } }
@@ -52,6 +55,7 @@ namespace MyUI.viewmodels
             selectedVersion = 7530;
             Selectedsolution = 1;
             Mode = "Debug";
+            _logfile = String.Empty;
             getList();
             Solution = Solutionlist[1];
             RockWave = list[0].RockWave;
@@ -174,11 +178,22 @@ namespace MyUI.viewmodels
             return ReactiveCommand.Create(() => {
                 try
                 {
+                    if (_logfile == String.Empty)
+                    {
+                        DateTime d = DateTime.Today;
+                        var d2 = DateTime.Now;
+                        string d3 = d2.ToString();
+                        _logfile = Regex.Replace(d3, "/", "_");
+                        _logfile = Regex.Replace(_logfile, " ", "_");
+                        _logfile = Regex.Replace(_logfile, ":", "_");
+                    }
                     CleanScript();
                 }
                 catch (Exception ex)
                 {
-                    File.AppendAllText("log.txt", ex.ToString());
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", ex.ToString());
                     MessageBox.Show(ex.ToString());
                 }
                
@@ -194,7 +209,7 @@ namespace MyUI.viewmodels
             else
             {
 
-                sc.CreateScript(Mode, "Clean", LongViewpath, Solution, selectedVersion,"");
+                sc.CreateScript(Mode, "Clean", LongViewpath, Solution, selectedVersion, ".\\logs\\" + _logfile + "log.txt");
                 MessageBox.Show("Script Created ! ");
             }
         }
@@ -202,7 +217,15 @@ namespace MyUI.viewmodels
         private ReactiveCommand BuildCommand()
         {
             return ReactiveCommand.Create(() => {
-
+                if (_logfile == String.Empty)
+                {
+                    DateTime d = DateTime.Today;
+                    var d2 = DateTime.Now;
+                    string d3 = d2.ToString();
+                    _logfile = Regex.Replace(d3, "/", "_");
+                    _logfile = Regex.Replace(_logfile, " ", "_");
+                    _logfile = Regex.Replace(_logfile, ":", "_");
+                }
                 BuildScript();
             });
         }
@@ -220,13 +243,15 @@ namespace MyUI.viewmodels
                 else
                 {
 
-                    sc.CreateScript(Mode, "Build", LongViewpath, Solution, selectedVersion,"");
+                    sc.CreateScript(Mode, "Build", LongViewpath, Solution, selectedVersion, ".\\logs\\" + _logfile + "log.txt");
                     MessageBox.Show("Script Created ! ");
                 }
             }
             catch (Exception ex)
             {
-                File.AppendAllText("log.txt", ex.ToString());
+                File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+
+                File.AppendAllText(".\\logs\\" + _logfile + "log.txt", ex.ToString());
                 MessageBox.Show(ex.ToString());
             }
         }
@@ -235,39 +260,61 @@ namespace MyUI.viewmodels
         {
             try
             {
-                File.AppendAllText("log.txt", " << Building Project V : " + selectedVersion + " >> \r\n");
+                if (_logfile == String.Empty)
+                {
+                    DateTime d = DateTime.Today;
+                    var d2 = DateTime.Now;
+                    string d3 = d2.ToString();
+                    _logfile = Regex.Replace(d3, "/", "_");
+                    _logfile = Regex.Replace(_logfile, " ", "_");
+                    _logfile = Regex.Replace(_logfile, ":", "_");
+                }
+                File.AppendAllText(".\\logs\\" + _logfile + "log.txt", " << Building Project V : " + selectedVersion + " >> \r\n");
                 if (!sc.IsValidPath(@LongViewpath))
                 {
-                    File.AppendAllText("log.txt", "Folder does Not Existe \r\n");
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "Folder does Not Existe \r\n");
                     MessageBox.Show("LongView Path is Not Valid");
                 }
                 else if (!sc.IsValidPath(@RogueWavepath))
                 {
-                    File.AppendAllText("log.txt", "MISSING ROGUE WAVE ! \r\n");
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "MISSING ROGUE WAVE ! \r\n");
                     MessageBox.Show("MISSING ROGUE WAVE !");
                 }
                 else if (!sc.IsValidPath(@CodeJockpath + "\\" + Codejock))
                 {
-                    File.AppendAllText("log.txt", "Codejock Software path Not Valid \r\n");
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "Codejock Software path Not Valid \r\n");
                     MessageBox.Show("MISSING Codejock Software Are you missing \\MFC ? ! !");
                 }
                 else if (!sc.IsValidPath("C:\\Users\\" + Environment.UserName + "\\AppData\\Local\\Microsoft\\MSBuild\\v4.0"))
                 {
-                    File.AppendAllText("log.txt", "MISSING Visual Studio Build tools (2013)! \r\n");
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "MISSING Visual Studio Build tools (2013)! \r\n");
                     MessageBox.Show("MISSING MISSING Visual Studio Build tools !");
                 }
                 else if (!sc.PerlVerif())
                 {
-                    File.AppendAllText("log.txt", "MISSING Perl! \r\n");
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "MISSING Perl! \r\n");
                     MessageBox.Show("You need to install Perl !");
                 }
                 else
                 {
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
 
 
-                    File.AppendAllText("log.txt", "Updated Path Environement ! \r\n");
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "Updated Path Environement ! \r\n");
                     sc.editingFile(RockWave, Codejock, selectedVersion, RogueWavepath, CodeJockpath, Xceed);
-                    File.AppendAllText("log.txt", "Updated Microsoft.cpp files  ! \r\n");
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "Updated Microsoft.cpp files  ! \r\n");
                     sc.Update_MSBUILD(RockWave, Codejock, selectedVersion, RogueWavepath, CodeJockpath);
                     MessageBox.Show("Machine Configurated ! ");
                 }
@@ -275,7 +322,9 @@ namespace MyUI.viewmodels
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-                                        File.AppendAllText("log.txt", ex.ToString());
+                File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+
+                File.AppendAllText(".\\logs\\" + _logfile + "log.txt", ex.ToString());
 
                 
             }
