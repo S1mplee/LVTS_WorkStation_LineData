@@ -3,18 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewmodels="clr-namespace:MyUI.viewmodels"
         xmlns:views="clr-namespace:MyUI.views"
-     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-     TextElement.FontWeight="Regular"
-     TextElement.FontSize="13"
-     TextOptions.TextFormattingMode="Ideal"
-     TextOptions.TextRenderingMode="Auto"
-     Background="{DynamicResource MaterialDesignPaper}"
-     FontFamily="{DynamicResource MaterialDesignFont}"
-        xmlns:MetroChart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
-        xmlns:local="clr-namespace:MyUI"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Title="MainWindow" Height="950" Width="1150">
     <Window.Resources>
@@ -25,7 +23,7 @@
             <views:DataBaseBuild DataContext="{Binding}"/>
         </DataTemplate>
     </Window.Resources>
-    
+
     <!-- View -->
     <Grid Background="LightGray">
         <Grid.ColumnDefinitions>
@@ -77,11 +75,6 @@
                         <TextBlock Foreground="Black" HorizontalAlignment="Center" Text="ExecuteScript >>" FontFamily="Champagne &amp; Limousines"/>
                     </Grid>
                 </Button>
-
-
-
-
-
             </StackPanel>
         </Grid>
         <ContentControl Grid.Column="1" Content="{Binding}"/>
