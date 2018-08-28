@@ -6,10 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyUI", "MyUI\MyUI.csproj", "{B927D00E-992B-4044-A90F-B5827FF77422}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5CEF39D4-22D2-4C3B-B349-DFA1BE3FC01C}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\1200x630wa_burned.png = ..\..\1200x630wa_burned.png
-		..\..\Capture.JPG = ..\..\Capture.JPG
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logo", "logo", "{E7D9CD33-F04B-42E7-818D-593C1BBA58E2}"
 	ProjectSection(SolutionItems) = preProject
