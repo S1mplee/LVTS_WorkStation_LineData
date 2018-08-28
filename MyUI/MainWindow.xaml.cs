@@ -42,8 +42,17 @@ namespace MyUI
         private void Button_ClickAsync(object sender, RoutedEventArgs e)
         {
 
+            try
+            {
+                Process.Start("Console.exe");
 
-            Process.Start("ConsoleEdit.exe");         
+            
+          //  Process.Start("ConsoleEdit.exe",".\\Build.ps1");  
+                }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
               
         }
     }

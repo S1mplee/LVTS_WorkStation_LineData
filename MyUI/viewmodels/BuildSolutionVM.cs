@@ -62,7 +62,7 @@ namespace MyUI.viewmodels
             Codejock = list[0].CodejockWave;
             // Buttons (Clean / Build )
             Build = BuildCommand();
-            Clean = ExecuteBuilde();
+            Clean = CleanCommand();
             Configure = ConfigureCommand();
             // selected Items of versions !
             v2 = changeSelectedItem(1,7500,0);
@@ -367,7 +367,7 @@ namespace MyUI.viewmodels
 
         public ReactiveCommand Build { get; set; }
 
-        public ReactiveCommand <Unit,Unit> Clean { get; private set; }
+        public ReactiveCommand  Clean { get; private set; }
 
         public ReactiveCommand v1 { get; set; }
 

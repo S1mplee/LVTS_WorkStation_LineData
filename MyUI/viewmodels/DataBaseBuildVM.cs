@@ -60,6 +60,8 @@ namespace MyUI.viewmodels
 
                 third = ModeSelection(2);
 
+                Add = Adduser();
+
                 DataSource = Open();
 
                 folderplus = getfolder();
@@ -76,6 +78,23 @@ namespace MyUI.viewmodels
                     
             }
 
+        }
+
+        private ReactiveCommand Adduser()
+        {
+            return ReactiveCommand.Create(() =>
+            {
+                try
+                {
+                    sc.AddUser(LongViewpath);
+                    MessageBox.Show("User : " + Environment.UserName + " Full Name : " + System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", ex.ToString() + "\r\n");
+                }
+            });
         }
 
         private ReactiveCommand CleanDirectory()
@@ -260,6 +279,8 @@ namespace MyUI.viewmodels
         public ReactiveCommand Build { get; set; }
 
         public ReactiveCommand Clean { get; set; }
+
+        public ReactiveCommand Add { get; set; }
 
 
 

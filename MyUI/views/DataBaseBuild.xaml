@@ -13,7 +13,7 @@
      FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:MetroChart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
              mc:Ignorable="d" 
-             d:DesignHeight="950" d:DesignWidth="950">
+             d:DesignHeight="950" d:DesignWidth="1000">
 
     <UserControl.Resources>
         <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
@@ -283,21 +283,28 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
                 <StackPanel Margin="0 200 0 0" Orientation="Horizontal">
-                    <Button Command="{Binding Path=Build}" Margin="80 0 0 0" Style="{StaticResource MaterialDesignRaisedAccentButton}" Width="100"
+                    <Button Command="{Binding Path=Build}" Margin="50 0 0 0" Style="{StaticResource MaterialDesignRaisedAccentButton}" Width="100"
                         ToolTip="Resource name: MaterialDesignRaisedAccentButton">
                         BuildScript
                     </Button>
-                    <RepeatButton  Width="100" Margin="80 0 0 0" ToolTip="Resource name: MaterialDesignRaisedButton" Command="{Binding CreateDB}">
+                    <RepeatButton  Width="100" Margin="50 0 0 0" ToolTip="Resource name: MaterialDesignRaisedButton" Command="{Binding CreateDB}">
                         CreateDB
                     </RepeatButton>
-                    <Button Command="{Binding Path=Clean}" Margin="80 0 0 0" Style="{StaticResource MaterialDesignRaisedLightButton}" Width="120"
+                    <Button Command="{Binding Path=Clean}" Margin="50 0 0 0" Style="{StaticResource MaterialDesignRaisedLightButton}" Width="120"
                         ToolTip="Resource name: MaterialDesignRaisedLightButton">
                         CleanOutPut
                     </Button>
-                            <Button Command="{Binding Path=DataSource}" Margin="80 0 0 0" Style="{StaticResource MaterialDesignRaisedLightButton}" Width="120"
+                            <Button Command="{Binding Path=DataSource}" Margin="50 0 0 0" Style="{StaticResource MaterialDesignRaisedLightButton}" Width="120"
                         ToolTip="Resource name: MaterialDesignRaisedLightButton">
                         DataSources
                     </Button>
+
+                    <Button Command="{Binding Path=Add}" Margin="50 0 0 0" Style="{StaticResource MaterialDesignRaisedLightButton}" Width="120"
+                        ToolTip="Resource name: MaterialDesignRaisedLightButton">
+                        AddUSER
+                    </Button>
+
+
 
                 </StackPanel>
             </StackPanel>

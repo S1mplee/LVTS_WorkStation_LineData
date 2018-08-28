@@ -235,6 +235,7 @@ namespace MyUI.models
             script.Add("AppendToLogFile	= true");
             script.Add("}));");
             script.Add("  });");
+            
             script.Add("    RunTarget(target);");
 
             File.WriteAllLines("build.cake", script);
@@ -377,6 +378,29 @@ SQL_COMPILE_ORACLE_server=bs1orc03
 SQL_COMPILE_ORACLE_user=lvts_compile
 SQL_COMPILE_ORACLE_password=lvts_compile
             */
+        }
+
+        public void AddUser(string path)
+        {
+            string[] list;
+            var attr = File.GetAttributes(@path + "\\Database\\data\\d_lvuser.sql");
+            List<string> list2 = new List<string>();
+            list = File.ReadAllLines(@path + "\\Database\\data\\d_lvuser.sql");
+
+            foreach (var ligne in list)
+            {
+                list2.Add(ligne);
+            }
+            list2.Add(" ");
+            for (int i = list2.Count() - 1; i > list2.IndexOf("/* Engineers - Tunis */") + 1; i--)
+            {
+                list2[i] = list2[i - 1];
+            }
+            list2[list2.IndexOf("/* Engineers - Tunis */") + 1] = "insert into #lvusers_lv_users values ('" + Environment.UserName + "', '" + System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName + "', 1);";
+            attr = attr & ~FileAttributes.ReadOnly;
+            File.SetAttributes(@path + "\\Database\\data\\d_lvuser.sql", attr);
+
+            File.WriteAllLines(@path + "\\Database\\data\\d_lvuser.sql", list2);
         }
     }
 }
