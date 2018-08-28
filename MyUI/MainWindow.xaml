@@ -48,22 +48,25 @@
                 <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" RenderingBias="Quality" ShadowDepth="1"/>
             </Grid.Effect>
 
-            <Grid Background="#FFA46FE4">
-                <TextBlock Text="LVTS/WorkStation" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="WS Simple Gallifreyan" Foreground="#FFBC96EA" FontSize="16"/>
+            <Grid Background="Black">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="50" Margin="5 0 0 0" Height="50" Source="C:\Users\ABoumellessa\Desktop\1200x630wa_burned.png" ></Image>
+                    <TextBlock Margin="30 0 0 0" Text="LVTS/WorkStation" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="WS Simple Gallifreyan" Foreground="#ff0000" FontSize="16"/>
+                </StackPanel>
             </Grid>
 
             <StackPanel Grid.Row="1">
-                <Button Margin="10" Background="#FF8522BD" BorderBrush="#FF8522BD" Click="Button_Click_1">
+                <Button Margin="10" Background="Black" BorderBrush="#FF8522BD" Click="Button_Click_1">
                     <Grid Width="150">
                         <materialDesign:PackIcon Kind="ViewDashboard" VerticalAlignment="Center"/>
-                        <TextBlock HorizontalAlignment="Center" Text="BuildSolution" FontFamily="Champagne &amp; Limousines" Height="17" Margin="33,0" VerticalAlignment="Top"/>
+                        <TextBlock HorizontalAlignment="Center" Text="BuildSolution" FontFamily="Champagne &amp; Limousines" Height="17" Margin="33,0" VerticalAlignment="Top" Foreground="#ff0000"/>
                     </Grid>
                 </Button>
 
-                <Button Margin="10" Background="#FF8522BD" BorderBrush="#FF8522BD" Click="Button_Click_2">
+                <Button Margin="10" Background="black" BorderBrush="#FF8522BD" Click="Button_Click_2">
                     <Grid Width="150">
                         <materialDesign:PackIcon Kind="ViewDashboard" VerticalAlignment="Center"/>
-                        <TextBlock HorizontalAlignment="Center" Text="BuildDataBase" FontFamily="Champagne &amp; Limousines"/>
+                        <TextBlock HorizontalAlignment="Center" Foreground="#ff0000" Text="BuildDataBase" FontFamily="Champagne &amp; Limousines"/>
                     </Grid>
                 </Button>
 
@@ -71,7 +74,7 @@
                 <Button Margin="0 325 0 0" Background="#ff0000" BorderBrush="#FF8522BD" Click="Button_ClickAsync" >
                     <Grid Width="150">
                         <materialDesign:PackIcon Kind="Engine" VerticalAlignment="Center"/>
-                        <TextBlock HorizontalAlignment="Center" Text="ExecuteScript >>" FontFamily="Champagne &amp; Limousines"/>
+                        <TextBlock Foreground="Black" HorizontalAlignment="Center" Text="ExecuteScript >>" FontFamily="Champagne &amp; Limousines"/>
                     </Grid>
                 </Button>
 

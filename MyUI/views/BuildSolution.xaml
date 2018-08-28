@@ -196,8 +196,8 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
 
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0" Background="#f0f8ff" Margin="10">
-                <Grid Width="35" Height="50" Background="#FFFFAF24" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
+            <Grid Grid.Column="0"  Margin="10">
+                <Grid Width="35" Height="50" Background="black" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
                     <Grid.Effect>
                         <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
                     </Grid.Effect>
@@ -207,8 +207,8 @@
                     <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}" Text="LongView" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="40"/>
                 </StackPanel>
             </Grid>
-            <Grid Grid.Column="1" Background="#f0f8ff" Margin="10">
-                <Grid Width="35" Height="50" Background="#FF41A43C" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
+            <Grid Grid.Column="1"  Margin="10">
+                <Grid Width="35" Height="50" Background="Gray" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
                     <Grid.Effect>
                         <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
                     </Grid.Effect>
@@ -219,7 +219,7 @@
                     
                 </StackPanel>
             </Grid>
-            <Grid Grid.Column="2" Background="#f0f8ff" Margin="10">
+            <Grid Grid.Column="2"  Margin="10">
                 <Grid Width="35" Height="50" Background="#FFCF1F1F" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 0">
                     <Grid.Effect>
                         <DropShadowEffect BlurRadius="20" Color="#FFECECEC" RenderingBias="Quality" ShadowDepth="1"/>
@@ -228,27 +228,27 @@
                 </Grid>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10 20">
                     <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="10" FontWeight="Bold" Text="Mode  :" FontFamily="Champagne &amp; Limousines" VerticalAlignment="Center" Foreground="Gray" FontSize="15" Width="129"/>
-                    <RadioButton IsChecked="True"   FontWeight="SemiBold" Foreground="Green" Margin="10" Content="Debug" Command="{Binding debug}"/>
+                    <RadioButton IsChecked="True"   FontWeight="SemiBold" Foreground="Gray" Margin="10" Content="Debug" Command="{Binding debug}"/>
                     <RadioButton BorderBrush="Red" FontWeight="SemiBold" Margin="10" Foreground="Red" Content="Release" Command="{Binding release}"/>
                 </StackPanel>
             </Grid>
 
         </Grid>
-        <Grid Grid.Row="1" Margin="50" Background="#f0f8ff">
+        <Grid Grid.Row="1" Margin="50" >
             <StackPanel>
                 <materialDesign:Card Padding="4">
-                    <Label FontStyle="Normal" FontWeight="Bold" Foreground="#FF41A43C" HorizontalAlignment="Center">Choose the Version :</Label>
+                    <Label FontStyle="Normal" FontWeight="Bold" Foreground="black" HorizontalAlignment="Center">Choose the Version :</Label>
                 </materialDesign:Card>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <RadioButton Command="{Binding Path=v1}" FontWeight="Bold" Margin="10" IsChecked="True">V:75.3.0</RadioButton>
-                    <RadioButton Command="{Binding Path=v2}" FontWeight="Bold" Margin="10">V:75.0.0</RadioButton>
-                    <RadioButton Command="{Binding Path=v3}" FontWeight="Bold" Margin="10">V:74.0.0</RadioButton>
-                    <RadioButton Command="{Binding Path=v4}" FontWeight="Bold" Margin="10">V:73.0.0</RadioButton>
-                    <RadioButton Command="{Binding Path=v5}" FontWeight="Bold" Margin="10">V:72.0.0</RadioButton>
+                    <RadioButton Command="{Binding Path=v2}" FontWeight="Bold" Margin="10">V:75.x.x</RadioButton>
+                    <RadioButton Command="{Binding Path=v3}" FontWeight="Bold" Margin="10">V:74.x.x</RadioButton>
+                    <RadioButton Command="{Binding Path=v4}" FontWeight="Bold" Margin="10">V:73.x.x</RadioButton>
+                    <RadioButton Command="{Binding Path=v5}" FontWeight="Bold" Margin="10">V:72.x.x</RadioButton>
 
                 </StackPanel>
                 <materialDesign:Card Padding="4">
-                    <Label FontStyle="Normal" Foreground="#FF41A43C" FontWeight="Bold" HorizontalAlignment="Center">3rdPartyLibrary :</Label>
+                    <Label FontStyle="Normal" Foreground="black" FontWeight="Bold" HorizontalAlignment="Center">3rdPartyLibrary :</Label>
                 </materialDesign:Card>
                 <StackPanel Orientation="Horizontal">
                     <StackPanel>
@@ -269,13 +269,13 @@
                     </StackPanel>
                 </StackPanel>
                 <materialDesign:Card Padding="4">
-                    <Label FontStyle="Normal" Foreground="#FF41A43C" FontWeight="Bold" HorizontalAlignment="Center">Path Where You Downloaded the Product :</Label>
+                    <Label FontStyle="Normal" Foreground="black" FontWeight="Bold" HorizontalAlignment="Center">Path Where You Downloaded the Product :</Label>
                 </materialDesign:Card>
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <Label FontWeight="Bold" Margin="15"> LongView Path :</Label>
                         <TextBox  Margin="10 0 0 0" Padding="2" Text="{Binding LongViewpath}" Width="400"></TextBox>
-                    <Button Command="{Binding folderplus}" Margin="150 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                    <Button Background="Gray" Command="{Binding folderplus}" Margin="150 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                             ToolTip="MaterialDesignFloatingActionMiniLightButton">
                         <materialDesign:PackIcon Kind="FolderPlus" Height="24" Width="24" />
                     </Button>
@@ -284,7 +284,7 @@
                         <Label FontWeight="Bold" Margin="15">RogueWave Path :</Label>
 
                         <TextBox Margin="0 0 0 0" Padding="2" Text="{Binding RogueWavepath}" Width="400"></TextBox>
-                        <Button Command="{Binding folderplus2}" Margin="150 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                        <Button Background="Gray" Command="{Binding folderplus2}" Margin="150 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                             ToolTip="MaterialDesignFloatingActionMiniLightButton">
                             <materialDesign:PackIcon Kind="FolderPlus" Height="24" Width="24" />
                         </Button>
@@ -293,7 +293,7 @@
                         <Label FontWeight="Bold" Margin="15">CodeJock Path :</Label>
 
                         <TextBox Margin="13 0 0 0" Padding="2" Text="{Binding CodeJockpath}" Width="400"></TextBox>
-                        <Button Command="{Binding folderplus3}" Margin="150 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                        <Button Background="Gray" Command="{Binding folderplus3}" Margin="150 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                             ToolTip="MaterialDesignFloatingActionMiniLightButton">
                             <materialDesign:PackIcon Kind="FolderPlus" Height="24" Width="24" />
                         </Button>
@@ -302,14 +302,14 @@
                         <Label FontWeight="Bold" Margin="15">Xceed Path :</Label>
 
                         <TextBox Margin="35 0 0 0" Padding="2" Text="{Binding Xceed}" Width="400"></TextBox>
-                        <Button Command="{Binding folderplus4}" Margin="150 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                        <Button Background="Gray" Command="{Binding folderplus4}" Margin="150 10 0 0" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                             ToolTip="MaterialDesignFloatingActionMiniLightButton">
                             <materialDesign:PackIcon Kind="FolderPlus" Height="24" Width="24" />
                         </Button>
                     </StackPanel>
                 </StackPanel>
                 <materialDesign:Card Padding="4" Margin="10">
-                    <Label FontStyle="Normal" FontWeight="Bold" Foreground="#FF41A43C" HorizontalAlignment="Center">The Solution :</Label>
+                    <Label FontStyle="Normal" FontWeight="Bold" Foreground="black" HorizontalAlignment="Center">The Solution :</Label>
                 </materialDesign:Card>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <ComboBox SelectedIndex="{Binding Selectedsolution}" SelectedItem="{Binding Solution}" Margin="10" Width="200" ItemsSource="{Binding Solutionlist}">
@@ -317,14 +317,14 @@
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
-                    <Button Command="{Binding Path=Build}" Margin="10" Style="{StaticResource MaterialDesignRaisedAccentButton}" Width="100"
+                    <Button Background="#ff0000" Command="{Binding Path=Build}" Margin="10" Style="{StaticResource MaterialDesignRaisedAccentButton}" Width="100"
                         ToolTip="Resource name: MaterialDesignRaisedAccentButton">
                         BuildScript
                     </Button>
-                    <RepeatButton  Width="100" Margin="200 0 0 0" ToolTip="Resource name: MaterialDesignRaisedButton" Command="{Binding Configure}">
+                    <RepeatButton Background="#ff0000" Width="100" Margin="200 0 0 0" ToolTip="Resource name: MaterialDesignRaisedButton" Command="{Binding Configure}">
                         Configure
                     </RepeatButton>
-                    <Button Command="{Binding Path=Clean}" Margin="200 0 0 0" Style="{StaticResource MaterialDesignRaisedLightButton}" Width="110"
+                    <Button Background="#ff0000" Command="{Binding Path=Clean}" Margin="200 0 0 0" Style="{StaticResource MaterialDesignRaisedAccentButton}" Width="110"
                         ToolTip="Resource name: MaterialDesignRaisedLightButton">
                         CleanScript
                     </Button>
