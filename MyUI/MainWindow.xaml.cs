@@ -44,7 +44,7 @@ namespace MyUI
 
             try
             {
-                Process.Start("Console.exe");
+                Process.Start("PowerShellConsole.exe");
 
             
           //  Process.Start("ConsoleEdit.exe",".\\Build.ps1");  

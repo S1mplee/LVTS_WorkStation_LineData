@@ -86,8 +86,24 @@ namespace MyUI.viewmodels
             {
                 try
                 {
-                    sc.AddUser(LongViewpath);
+                    if (_logfile == String.Empty)
+                    {
+                        DateTime d = DateTime.Today;
+                        var d2 = DateTime.Now;
+                        string d3 = d2.ToString();
+                        _logfile = Regex.Replace(d3, "/", "_");
+                        _logfile = Regex.Replace(_logfile, " ", "_");
+                        _logfile = Regex.Replace(_logfile, ":", "_");
+                    }
+                    if (sc.IsValidPath(@LongViewpath + "\\Database")) { 
+                        sc.AddUser(LongViewpath);
                     MessageBox.Show("User : " + Environment.UserName + " Full Name : " + System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Path Not Valid!");
+                        File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "Path Not Valid !");
+                    }
                 }
                 catch (Exception ex)
                 {

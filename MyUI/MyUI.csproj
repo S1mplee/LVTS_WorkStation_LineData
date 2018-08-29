@@ -130,12 +130,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="models\ConsoleManager.cs" />
     <Compile Include="models\LongView.cs" />
-    <Compile Include="models\MyHost.cs" />
-    <Compile Include="models\MyHostUserInterface.cs" />
-    <Compile Include="models\MyRawUserInterface.cs" />
-    <Compile Include="models\PSListenerConsoleSample.cs" />
     <Compile Include="models\Service.cs" />
     <Compile Include="viewmodels\BuildSolutionVM.cs" />
     <Compile Include="viewmodels\DataBaseBuildVM.cs" />

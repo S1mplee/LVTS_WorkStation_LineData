@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Management.Automation;
 using System.Management.Automation.Host;
-namespace MyUI.models
+namespace PowerShellConsole
 {
     public class MyHostUserInterface : PSHostUserInterface
     {

@@ -79,15 +79,7 @@ namespace MyUI.viewmodels
             release = changeToRelease();
         }
 
-        private ReactiveCommand<Unit, Unit> ExecuteBuilde()
-        {
-            return ReactiveCommand.Create(() =>
-            {
-                PSListenerConsoleSample scc = new PSListenerConsoleSample();
-                ConsoleManager.Show();
-                scc.RuningPowerShell();
-            });
-        }
+       
 
         private ReactiveCommand ConfigureCommand()
         {

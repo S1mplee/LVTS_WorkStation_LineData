@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
 using System.Management.Automation.Host;
-namespace MyUI.models
+namespace PowerShellConsole
 {
  
         public class MyHost : PSHost

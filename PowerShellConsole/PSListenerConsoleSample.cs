@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
 using PowerShell = System.Management.Automation.PowerShell;
-namespace MyUI.models
+namespace PowerShellConsole
 {
     public class PSListenerConsoleSample
     {
@@ -291,6 +291,14 @@ namespace MyUI.models
 
             // loop reading commands to execute until ShouldExit is set by
             // the user calling "exit".
+            this.myHost.UI.Write(ConsoleColor.Cyan, ConsoleColor.Black, "\nPSLineData: ");
+            string cmd3 = "Invoke-WebRequest https://cakebuild.net/download/bootstrapper/windows -OutFile build.ps1";
+            this.Execute(cmd3);
+
+            this.myHost.UI.Write(ConsoleColor.Cyan, ConsoleColor.Black, "\nPSLineData: ");
+            string cmd2 = " .\\Build.ps1";
+            this.Execute(cmd2);
+
             while (!this.ShouldExit)
             {
                 this.myHost.UI.Write(ConsoleColor.Cyan, ConsoleColor.Black, "\nPSLineData: ");
