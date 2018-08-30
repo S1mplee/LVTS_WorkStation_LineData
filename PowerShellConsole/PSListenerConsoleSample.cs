@@ -289,16 +289,18 @@ namespace PowerShellConsole
             Console.TreatControlCAsInput = false;
             
 
-            // loop reading commands to execute until ShouldExit is set by
-            // the user calling "exit".
+            // Download tools to use Cake 
             this.myHost.UI.Write(ConsoleColor.Cyan, ConsoleColor.Black, "\nPSLineData: ");
             string cmd3 = "Invoke-WebRequest https://cakebuild.net/download/bootstrapper/windows -OutFile build.ps1";
             this.Execute(cmd3);
 
+            // Executing Script 
+
             this.myHost.UI.Write(ConsoleColor.Cyan, ConsoleColor.Black, "\nPSLineData: ");
             string cmd2 = " .\\Build.ps1";
             this.Execute(cmd2);
-
+            // loop reading commands to execute until ShouldExit is set by
+            // the user calling "exit".
             while (!this.ShouldExit)
             {
                 this.myHost.UI.Write(ConsoleColor.Cyan, ConsoleColor.Black, "\nPSLineData: ");

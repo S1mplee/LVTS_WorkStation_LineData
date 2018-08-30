@@ -47,6 +47,11 @@ namespace MyUI.viewmodels
         private string _Mode;
         public string Mode { get { return _Mode; } set { this.RaiseAndSetIfChanged(ref _Mode, value); } }
 
+        private int _selected;
+        public int selected { get { return _selected; } set { this.RaiseAndSetIfChanged(ref _selected, value); } }
+
+    
+
         Service sc = new Service();
         // Constructor 
         public BuildSolutionVM()
@@ -374,12 +379,7 @@ namespace MyUI.viewmodels
         }
 
 
-        private int _selected;
-        public int selected { get { return _selected; } set { this.RaiseAndSetIfChanged(ref _selected, value); } }
-
-        private string _resultat;
-
-        public string resultat { get { return _resultat; } set { this.RaiseAndSetIfChanged(ref _resultat, value); } }
+       
 
         public ReactiveList<LongView> list { get; set; }
 
@@ -415,6 +415,8 @@ namespace MyUI.viewmodels
         public ReactiveCommand Configure { get; set; }
 
         public ReactiveCommand OpenSolution { get; set; }
+
+        
 
 
 
