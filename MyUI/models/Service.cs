@@ -167,7 +167,7 @@ namespace MyUI.models
 
             const string name = "PATH";
             string url = Rockwavepath1 + ";" + Rockwavepath2 + ";" + CodjocksoftwarePath;
-            var target = EnvironmentVariableTarget.User;
+            var target = EnvironmentVariableTarget.Machine;
             string pathvar = System.Environment.GetEnvironmentVariable(name,target);
             if (!pathvar.Contains(url)) { 
                 var value = pathvar + @";" + url;
@@ -183,34 +183,14 @@ namespace MyUI.models
         public void CreateScript(string mode,string config,string longviewpath,string solution,int version,string logfile)
         {
             List<string> script = new List<string>();
-            /*
-             var target = Argument("target", "Default");
-
-              Task("Default")
-              .Does(() =>
-       {
-          MSBuild(@"C:\Users\MSI\source\repos\DeglaMan\DeglaMan.sln", new MSBuildSettings()
-              .UseToolVersion(MSBuildToolVersion.VS2013)
-	          .SetConfiguration("Debug")
-              .WithTarget("Build")
-              .AddFileLogger(new MSBuildFileLogger {
-        LogFile = "./log.txt",
-        MSBuildFileLoggerOutput = MSBuildFileLoggerOutput.ErrorsOnly,
-        PerformanceSummaryEnabled = true,
-        AppendToLogFile	= true		
-        }));
-
-         });
-
-        RunTarget(target);
-             */
+           
             script.Add("var target = Argument(\"target\", \"Default\");");
             script.Add("Task(\"Default\")");
             script.Add("              .Does(() =>");
             script.Add("{");
             var path = Path.Combine(longviewpath, solution);
             string VSTools=String.Empty;
-            if (version > 7400)
+            if (version > 7300)
             {
                 VSTools = "VS2013";
             }
@@ -325,63 +305,7 @@ namespace MyUI.models
             list.Add("//Used for marketing data  \r\n SQL_BUILD_OUTPUT_ALL_Msft_Data_File=msftData.sql  \r\n SQL_BUILD_OUTPUT_ALL_Oracle_Data_File=oracleData.sql  \r\n //Used for stp - gwalloc  \r\n SQL_BUILD_OUTPUT_ALL_Msft_gwalloc_File=msftgwallc.sql  \r\n SQL_BUILD_OUTPUT_ALL_Oracle_gwalloc_File=oraclegwalloc.sql  \r\n //Used for stp - gwsrv  \r\n SQL_BUILD_OUTPUT_ALL_Msft_gwsrv_File=msftgwsrv.sql  \r\n SQL_BUILD_OUTPUT_ALL_Oracle_gwsrv_File=oraclegwsrv.sql  \r\n //Used for stp - ioisrv  \r\n SQL_BUILD_OUTPUT_ALL_Msft_ioisrv_File=msftioisrv.sql  \r\n SQL_BUILD_OUTPUT_ALL_Oracle_ioisrv_File=oracleioisrv.sql  \r\n //Used for stp - lqdnet  \r\n SQL_BUILD_OUTPUT_ALL_Msft_lqdnet_File=msftlqdnet.sql  \r\n SQL_BUILD_OUTPUT_ALL_Oracle_lqdnet_File=oraclelqdnet.sql  \r\n //Databases set up just for compiling and not testing  \r\n SQL_COMPILE_MSFT_version=SQL2005  \r\n SQL_COMPILE_MSFT_database=lvts_compile  \r\n SQL_COMPILE_MSFT_server=BS1SQL02\\SQL2K5  \r\n SQL_COMPILE_MSFT_user=  \r\n SQL_COMPILE_MSFT_password=  \r\n SQL_COMPILE_ORACLE_version=ORACLE10g  \r\n SQL_COMPILE_ORACLE_server=bs1orc03  \r\n SQL_COMPILE_ORACLE_user=lvts_compile  \r\n SQL_COMPILE_ORACLE_password=lvts_compile");
             File.WriteAllLines(@longviewpath+"\\Database\\ConfigSqlVars\\SqlVars.txt",list);
 
-            /*
-            BUILD_TYPE=1
-
-REMOVE_COMMENTS=1
-            
-//Login information used when applying to a Microsoft SQL server database
-SQL_APPLY_MSFT_version=SQL2014
-SQL_APPLY_MSFT_database=mkt7530
-SQL_APPLY_MSFT_server=TN1PFE-46
-SQL_APPLY_MSFT_user=
-SQL_APPLY_MSFT_password=
-
-//Login information used when applying to an Oracle database
-SQL_APPLY_ORACLE_version=ORACLE10g
-SQL_APPLY_ORACLE_server=bs1orc03
-SQL_APPLY_ORACLE_user=lvts_compile
-SQL_APPLY_ORACLE_password=lvts_compile
-
-//Specifies names of sql files to be generated which can be applied to a database
-SQL_BUILD_OUTPUT_ALL_Msft_Version=SQL2005
-SQL_BUILD_OUTPUT_ALL_Oracle_Version=ORACLE10g
-//Used for ConfigDB database
-SQL_BUILD_OUTPUT_ALL_Msft_ConfigDB_File=msftConfigDB.sql
-SQL_BUILD_OUTPUT_ALL_Oracle_ConfigDB_File=oracleConfigDB.sql
-//Used for Reporting database
-SQL_BUILD_OUTPUT_ALL_Msft_Reporting_File=msftReportingDB.sql
-SQL_BUILD_OUTPUT_ALL_Oracle_Reporting_File=oracleReportingDB.sql
-//Used for building LVTS Database
-SQL_BUILD_OUTPUT_ALL_Msft_Build_File=msftBuild.sql
-SQL_BUILD_OUTPUT_ALL_Oracle_Build_File=oracleBuild.sql
-//Used for marketing data
-SQL_BUILD_OUTPUT_ALL_Msft_Data_File=msftData.sql
-SQL_BUILD_OUTPUT_ALL_Oracle_Data_File=oracleData.sql
-//Used for stp - gwalloc
-SQL_BUILD_OUTPUT_ALL_Msft_gwalloc_File=msftgwallc.sql
-SQL_BUILD_OUTPUT_ALL_Oracle_gwalloc_File=oraclegwalloc.sql
-//Used for stp - gwsrv
-SQL_BUILD_OUTPUT_ALL_Msft_gwsrv_File=msftgwsrv.sql
-SQL_BUILD_OUTPUT_ALL_Oracle_gwsrv_File=oraclegwsrv.sql
-//Used for stp - ioisrv
-SQL_BUILD_OUTPUT_ALL_Msft_ioisrv_File=msftioisrv.sql
-SQL_BUILD_OUTPUT_ALL_Oracle_ioisrv_File=oracleioisrv.sql
-//Used for stp - lqdnet
-SQL_BUILD_OUTPUT_ALL_Msft_lqdnet_File=msftlqdnet.sql
-SQL_BUILD_OUTPUT_ALL_Oracle_lqdnet_File=oraclelqdnet.sql
-
-//Databases set up just for compiling and not testing
-SQL_COMPILE_MSFT_version=SQL2005
-SQL_COMPILE_MSFT_database=lvts_compile
-SQL_COMPILE_MSFT_server=BS1SQL02\SQL2K5
-SQL_COMPILE_MSFT_user=
-SQL_COMPILE_MSFT_password=
-SQL_COMPILE_ORACLE_version=ORACLE10g
-SQL_COMPILE_ORACLE_server=bs1orc03
-SQL_COMPILE_ORACLE_user=lvts_compile
-SQL_COMPILE_ORACLE_password=lvts_compile
-            */
+           
         }
         // Insert user in ordre to connect to LongView
         public void AddUser(string path)
