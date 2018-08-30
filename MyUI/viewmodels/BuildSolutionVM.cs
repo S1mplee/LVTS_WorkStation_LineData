@@ -60,7 +60,7 @@ namespace MyUI.viewmodels
             Solution = Solutionlist[1];
             RockWave = list[0].RockWave;
             Codejock = list[0].CodejockWave;
-            // Buttons (Clean / Build )
+            // Buttons (Clean / Build / OpenSolution / Configure )
             Build = BuildCommand();
             Clean = CleanCommand();
             OpenSolution = Opensolutioncommand();
@@ -112,6 +112,8 @@ namespace MyUI.viewmodels
                  }
             catch (Exception ex)
             {
+                File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+
                 File.AppendAllText(".\\logs\\" + _logfile + "log.txt", ex.ToString());
                 MessageBox.Show(ex.ToString());
             }
@@ -208,15 +210,7 @@ namespace MyUI.viewmodels
             return ReactiveCommand.Create(() => {
                 try
                 {
-                    if (_logfile == String.Empty)
-                    {
-                        DateTime d = DateTime.Today;
-                        var d2 = DateTime.Now;
-                        string d3 = d2.ToString();
-                        _logfile = Regex.Replace(d3, "/", "_");
-                        _logfile = Regex.Replace(_logfile, " ", "_");
-                        _logfile = Regex.Replace(_logfile, ":", "_");
-                    }
+                    LogFile();
                     CleanScript();
                 }
                 catch (Exception ex)
@@ -247,15 +241,7 @@ namespace MyUI.viewmodels
         private ReactiveCommand BuildCommand()
         {
             return ReactiveCommand.Create(() => {
-                if (_logfile == String.Empty)
-                {
-                    DateTime d = DateTime.Today;
-                    var d2 = DateTime.Now;
-                    string d3 = d2.ToString();
-                    _logfile = Regex.Replace(d3, "/", "_");
-                    _logfile = Regex.Replace(_logfile, " ", "_");
-                    _logfile = Regex.Replace(_logfile, ":", "_");
-                }
+                LogFile();
                 BuildScript();
             });
         }
@@ -290,15 +276,7 @@ namespace MyUI.viewmodels
         {
             try
             {
-                if (_logfile == String.Empty)
-                {
-                    DateTime d = DateTime.Today;
-                    var d2 = DateTime.Now;
-                    string d3 = d2.ToString();
-                    _logfile = Regex.Replace(d3, "/", "_");
-                    _logfile = Regex.Replace(_logfile, " ", "_");
-                    _logfile = Regex.Replace(_logfile, ":", "_");
-                }
+                LogFile();
                 File.AppendAllText(".\\logs\\" + _logfile + "log.txt", " << Building Project V : " + selectedVersion + " >> \r\n");
                 if (!sc.IsValidPath(@LongViewpath+"\\Database"))
                 {
@@ -380,6 +358,19 @@ namespace MyUI.viewmodels
             Solutionlist.Add("Server.sln");
             Solutionlist.Add("Client.sln");
 
+        }
+
+        private void LogFile()
+        {
+            if (_logfile == String.Empty)
+            {
+                DateTime d = DateTime.Today;
+                var d2 = DateTime.Now;
+                string d3 = d2.ToString();
+                _logfile = Regex.Replace(d3, "/", "_");
+                _logfile = Regex.Replace(_logfile, " ", "_");
+                _logfile = Regex.Replace(_logfile, ":", "_");
+            }
         }
 
 

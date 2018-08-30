@@ -134,6 +134,7 @@
     <Compile Include="models\Service.cs" />
     <Compile Include="viewmodels\BuildSolutionVM.cs" />
     <Compile Include="viewmodels\DataBaseBuildVM.cs" />
+    <Compile Include="viewmodels\MainWindowViewModel.cs" />
     <Compile Include="views\BuildSolution.xaml.cs">
       <DependentUpon>BuildSolution.xaml</DependentUpon>
     </Compile>

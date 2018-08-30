@@ -11,7 +11,7 @@ namespace MyUI.models
 {
     public class Service
     {
-
+        // This Fonction Update Microsoft.cpp.win32 and Microsoft.cpp.x64 Files 
         public void editingFile(string Rockwavepath1, string Codejockpath, int version,string pathRogue,string pathCodjock,string pathXceed)
         {
             List<string> text = new List<string>();
@@ -150,6 +150,7 @@ namespace MyUI.models
             
         }
 
+        // This Fonction inserts library paths in the PATH variable
         public  void Update_MSBUILD(string RockwavePath, string CodjocksoftwarePath, int version ,string Rogue,string Codjock)
         {
             string Rockwavepath1 = "", Rockwavepath2 = "";
@@ -178,6 +179,7 @@ namespace MyUI.models
 
         }
 
+        // This Fonction Generate Script For building solutions 
         public void CreateScript(string mode,string config,string longviewpath,string solution,int version,string logfile)
         {
             List<string> script = new List<string>();
@@ -242,7 +244,7 @@ namespace MyUI.models
 
         }
        
-
+        // This Fonction verifies if the path exist on the computer 
         public bool IsValidPath(string path)
         {
             bool isValid = true;
@@ -259,6 +261,7 @@ namespace MyUI.models
             return isValid;
         }
 
+        // This fonction Creates the databases in ordre to Build it 
         public void CreationDB(string username,string server,string version) {
             string connectionString = "Server="+server+";uid="+username+";pwd=;database=master;Trusted_Connection=Yes;Integrated Security=SSPI";
 
@@ -277,6 +280,7 @@ namespace MyUI.models
 
         }
 
+        // Inserts THe correct mode in ordre to build the database
         public void DataBaseScript(string longviewpath,string server,int mode,string version,string sql)
         {
             List<string> list = new List<string>();
@@ -379,7 +383,7 @@ SQL_COMPILE_ORACLE_user=lvts_compile
 SQL_COMPILE_ORACLE_password=lvts_compile
             */
         }
-
+        // Insert user in ordre to connect to LongView
         public void AddUser(string path)
         {
             string[] list;

@@ -86,15 +86,7 @@ namespace MyUI.viewmodels
             {
                 try
                 {
-                    if (_logfile == String.Empty)
-                    {
-                        DateTime d = DateTime.Today;
-                        var d2 = DateTime.Now;
-                        string d3 = d2.ToString();
-                        _logfile = Regex.Replace(d3, "/", "_");
-                        _logfile = Regex.Replace(_logfile, " ", "_");
-                        _logfile = Regex.Replace(_logfile, ":", "_");
-                    }
+                    LogFile();
                     if (sc.IsValidPath(@LongViewpath + "\\Database")) { 
                         sc.AddUser(LongViewpath);
                     MessageBox.Show("User : " + Environment.UserName + " Full Name : " + System.DirectoryServices.AccountManagement.UserPrincipal.Current.DisplayName);
@@ -102,12 +94,16 @@ namespace MyUI.viewmodels
                     else
                     {
                         MessageBox.Show("Path Not Valid!");
-                        File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "Path Not Valid !");
+                        File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+
+                        File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "Path Not Valid ! \r\n");
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
+                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+
                     File.AppendAllText(".\\logs\\" + _logfile + "log.txt", ex.ToString() + "\r\n");
                 }
             });
@@ -119,15 +115,7 @@ namespace MyUI.viewmodels
             {
                 try
                 {
-                    if (_logfile == String.Empty)
-                    {
-                        DateTime d = DateTime.Today;
-                        var d2 = DateTime.Now;
-                        string d3 = d2.ToString();
-                        _logfile = Regex.Replace(d3, "/", "_");
-                        _logfile = Regex.Replace(_logfile, " ", "_");
-                        _logfile = Regex.Replace(_logfile, ":", "_");
-                    }
+                    LogFile();
                     if (sc.IsValidPath(@LongViewpath + "\\Database"))
                     {
                         DirectoryInfo directory = new DirectoryInfo(@LongViewpath + "\\Database\\OutputFiles");
@@ -139,6 +127,8 @@ namespace MyUI.viewmodels
                     else
                     {
                         MessageBox.Show("Path Not Valid !");
+                        File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+
                         File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "Path Not Valid  \r\n");
                     }
                     }
@@ -158,16 +148,7 @@ namespace MyUI.viewmodels
             {
                 try
                 {
-                    if (_logfile == String.Empty)
-                    {
-                        DateTime d = DateTime.Today;
-                        var d2 = DateTime.Now;
-                        string d3 = d2.ToString();
-                        _logfile = Regex.Replace(d3, "/", "_");
-                        _logfile = Regex.Replace(_logfile, " ", "_");
-                        _logfile = Regex.Replace(_logfile, ":", "_");
-                    }
-                
+                    LogFile();
                 int dd;
                 int.TryParse(selectedVersion,out dd);
                 if (sc.IsValidPath(@LongViewpath + "\\Database"))
@@ -210,15 +191,7 @@ namespace MyUI.viewmodels
             return ReactiveCommand.Create(() =>
             {
                 try {
-                    if (_logfile == String.Empty)
-                    {
-                        DateTime d = DateTime.Today;
-                        var d2 = DateTime.Now;
-                        string d3 = d2.ToString();
-                        var reducedString = Regex.Replace(d3, "/", "_");
-                        reducedString = Regex.Replace(reducedString, " ", "_");
-                        reducedString = Regex.Replace(reducedString, ":", "_");
-                    }
+                    LogFile();
                 sc.CreationDB(Username, Server, selectedVersion);
                 File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
                 File.AppendAllText(".\\logs\\" + _logfile + "log.txt", " DataBases Created For Version  \r\n"+selectedVersion);
@@ -242,15 +215,7 @@ namespace MyUI.viewmodels
                 
                 try
                 {
-                    if (_logfile == String.Empty)
-                    {
-                        DateTime d = DateTime.Today;
-                        var d2 = DateTime.Now;
-                        string d3 = d2.ToString();
-                        _logfile = Regex.Replace(d3, "/", "_");
-                        _logfile = Regex.Replace(_logfile, " ", "_");
-                        _logfile = Regex.Replace(_logfile, ":", "_");
-                    }
+                    LogFile();
                Process.Start(@"C:\Windows\System32\odbcad32.exe");
                     }
                 catch (Exception ex)
@@ -278,6 +243,19 @@ namespace MyUI.viewmodels
             {
                 selectedVersion = p;
             });
+        }
+
+        private void LogFile()
+        {
+            if (_logfile == String.Empty)
+            {
+                DateTime d = DateTime.Today;
+                var d2 = DateTime.Now;
+                string d3 = d2.ToString();
+                _logfile = Regex.Replace(d3, "/", "_");
+                _logfile = Regex.Replace(_logfile, " ", "_");
+                _logfile = Regex.Replace(_logfile, ":", "_");
+            }
         }
 
         public ReactiveCommand v1 { get; set; }

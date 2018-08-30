@@ -15,14 +15,16 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         Title="MainWindow" Height="950" Width="1150">
+
     <Window.Resources>
-        <DataTemplate x:Name="BuildTemplate" DataType="{x:Type viewmodels:BuildSolutionVM}">
-            <views:BuildSolution DataContext="{Binding}"/>
+        <DataTemplate x:Key="View1Template" DataType="{x:Type viewmodels:MainWindowViewModel}">
+            <views:BuildSolution/>
         </DataTemplate>
-        <DataTemplate x:Name="DataBaseTemplate" DataType="{x:Type viewmodels:DataBaseBuildVM}">
-            <views:DataBaseBuild DataContext="{Binding}"/>
+        <DataTemplate x:Key="View2Template" DataType="{x:Type viewmodels:MainWindowViewModel}">
+            <views:DataBaseBuild/>
         </DataTemplate>
     </Window.Resources>
+
 
     <!-- View -->
     <Grid Background="LightGray">
@@ -54,14 +56,14 @@
             </Grid>
 
             <StackPanel Grid.Row="1">
-                <Button Margin="10" Background="Black" BorderBrush="#FF8522BD" Click="Button_Click_1">
+                <Button Margin="10" Background="Black" BorderBrush="#FF8522BD" Command="{Binding SwitchSolutionBuild}" >
                     <Grid Width="150">
                         <materialDesign:PackIcon Kind="ViewDashboard" VerticalAlignment="Center"/>
                         <TextBlock HorizontalAlignment="Center" Text="BuildSolution" FontFamily="Champagne &amp; Limousines" Height="17" Margin="33,0" VerticalAlignment="Top" Foreground="#ff0000"/>
                     </Grid>
                 </Button>
 
-                <Button Margin="10" Background="black" BorderBrush="#FF8522BD" Click="Button_Click_2">
+                <Button Margin="10" Background="black" BorderBrush="#FF8522BD" Command="{Binding SwitchDataBaseBuild}" >
                     <Grid Width="150">
                         <materialDesign:PackIcon Kind="ViewDashboard" VerticalAlignment="Center"/>
                         <TextBlock HorizontalAlignment="Center" Foreground="#ff0000" Text="BuildDataBase" FontFamily="Champagne &amp; Limousines"/>
@@ -69,7 +71,7 @@
                 </Button>
 
 
-                <Button Margin="0 325 0 0" Background="#ff0000" BorderBrush="#FF8522BD" Click="Button_ClickAsync" >
+                <Button Margin="0 325 0 0" Background="#ff0000" BorderBrush="#FF8522BD" Command="{Binding ConsoleOpen}" >
                     <Grid Width="150">
                         <materialDesign:PackIcon Kind="Engine" VerticalAlignment="Center"/>
                         <TextBlock Foreground="Black" HorizontalAlignment="Center" Text="ExecuteScript >>" FontFamily="Champagne &amp; Limousines"/>
@@ -77,7 +79,18 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <ContentControl Grid.Column="1" Content="{Binding}"/>
+        <ContentControl Content="{Binding }" Grid.Column="1">
+            <ContentControl.Style>
+                <Style TargetType="{x:Type ContentControl}">
+                    <Setter Property="ContentTemplate" Value="{StaticResource View1Template}" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SwitchView}" Value="1">
+                            <Setter Property="ContentTemplate" Value="{StaticResource View2Template}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
 
     </Grid>
 </Window>

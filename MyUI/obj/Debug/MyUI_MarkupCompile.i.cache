@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\MSI\Desktop\myapp\LVTS_WorkStation_LineData\MyUI\obj\Debug\
+C:\Users\ABoumellessa\Desktop\Workstation\LVTS_WorkStation_LineData\MyUI\obj\Debug\
 MyUI
 none
 false
 DEBUG;TRACE
-C:\Users\MSI\Desktop\myapp\LVTS_WorkStation_LineData\MyUI\App.xaml
+C:\Users\ABoumellessa\Desktop\Workstation\LVTS_WorkStation_LineData\MyUI\App.xaml
 3-1748690241
 
-15-1715511346
-36-661838273
+16998753111
+36-1241621187
 MainWindow.xaml;views\BuildSolution.xaml;views\DataBaseBuild.xaml;
 
-False
+True
 

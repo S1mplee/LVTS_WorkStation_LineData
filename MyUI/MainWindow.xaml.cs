@@ -25,35 +25,12 @@ namespace MyUI
     {
         public MainWindow()
         {
+            var vm = new MainWindowViewModel();
             InitializeComponent();
+            this.DataContext = vm;
         }
 
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            DataContext = new BuildSolutionVM();
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            DataContext = new DataBaseBuildVM();
-        }
-
-        private void Button_ClickAsync(object sender, RoutedEventArgs e)
-        {
-
-            try
-            {
-                Process.Start("PowerShellConsole.exe");
-
-            
-          //  Process.Start("ConsoleEdit.exe",".\\Build.ps1");  
-                }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-              
-        }
+       
     }
 }
