@@ -63,6 +63,7 @@ namespace MyUI.viewmodels
             // Buttons (Clean / Build )
             Build = BuildCommand();
             Clean = CleanCommand();
+            OpenSolution = Opensolutioncommand();
             Configure = ConfigureCommand();
             // selected Items of versions !
             v2 = changeSelectedItem(1,7500,0);
@@ -77,6 +78,43 @@ namespace MyUI.viewmodels
             folderplus4 = getpath4();
             debug = changeToDebug();
             release = changeToRelease();
+        }
+
+        private ReactiveCommand Opensolutioncommand()
+        {
+            return ReactiveCommand.Create(() =>
+            {
+                OpenSoltutionImpl();
+            });
+        }
+
+        private void OpenSoltutionImpl()
+        {
+            try
+            {
+
+           
+            if (!sc.IsValidPath(@LongViewpath+"\\Database"))
+            {
+                MessageBox.Show("Path Not Valid !");
+            }
+            else
+            {
+                if (selectedVersion > 7300)
+                {
+                    Process.Start(@"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe", @LongViewpath + "\\" + Solution );
+                }
+                else
+                {
+                    Process.Start(@"C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\devenv.exe", @LongViewpath + "\\" + Solution);
+                }
+            }
+                 }
+            catch (Exception ex)
+            {
+                File.AppendAllText(".\\logs\\" + _logfile + "log.txt", ex.ToString());
+                MessageBox.Show(ex.ToString());
+            }
         }
 
        
@@ -262,7 +300,7 @@ namespace MyUI.viewmodels
                     _logfile = Regex.Replace(_logfile, ":", "_");
                 }
                 File.AppendAllText(".\\logs\\" + _logfile + "log.txt", " << Building Project V : " + selectedVersion + " >> \r\n");
-                if (!sc.IsValidPath(@LongViewpath))
+                if (!sc.IsValidPath(@LongViewpath+"\\Database"))
                 {
                     File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
 
@@ -384,6 +422,8 @@ namespace MyUI.viewmodels
         public ReactiveCommand release { get; set; }
 
         public ReactiveCommand Configure { get; set; }
+
+        public ReactiveCommand OpenSolution { get; set; }
 
 
 

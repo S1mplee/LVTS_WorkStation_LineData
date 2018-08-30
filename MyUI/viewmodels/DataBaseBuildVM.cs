@@ -128,11 +128,19 @@ namespace MyUI.viewmodels
                         _logfile = Regex.Replace(_logfile, " ", "_");
                         _logfile = Regex.Replace(_logfile, ":", "_");
                     }
-                    DirectoryInfo directory = new DirectoryInfo(@LongViewpath + "\\Database\\OutputFiles");
-                    directory.GetFiles().ToList().ForEach(f => f.Delete());
-                    MessageBox.Show("All FIles Are Deleted !");
-                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
-                    File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "Files Deleted From the outputFIles ! \r\n");
+                    if (sc.IsValidPath(@LongViewpath + "\\Database"))
+                    {
+                        DirectoryInfo directory = new DirectoryInfo(@LongViewpath + "\\Database\\OutputFiles");
+                        directory.GetFiles().ToList().ForEach(f => f.Delete());
+                        MessageBox.Show("All FIles Are Deleted !");
+                        File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
+                        File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "Files Deleted From the outputFIles ! \r\n");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Path Not Valid !");
+                        File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "Path Not Valid  \r\n");
+                    }
                     }
                 catch (Exception ex)
                 {
@@ -231,6 +239,7 @@ namespace MyUI.viewmodels
         {
             return ReactiveCommand.Create(() =>
             {
+                
                 try
                 {
                     if (_logfile == String.Empty)
@@ -251,6 +260,7 @@ namespace MyUI.viewmodels
                     File.AppendAllText(".\\logs\\" + _logfile + "log.txt", ex.ToString() + "\r\n");
 
                 }
+                  
             });
         }
 

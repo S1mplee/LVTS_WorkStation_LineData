@@ -315,6 +315,7 @@
                     <ComboBox SelectedIndex="{Binding Selectedsolution}" SelectedItem="{Binding Solution}" Margin="10" Width="200" ItemsSource="{Binding Solutionlist}">
                          
                     </ComboBox>
+                    <Button Background="#ff0000" Command="{Binding Path=OpenSolution}">Open >></Button>
                 </StackPanel>
                 <StackPanel Margin="0 20 0 0" Orientation="Horizontal">
                     <Button Background="#ff0000" Command="{Binding Path=Build}" Margin="10" Style="{StaticResource MaterialDesignRaisedAccentButton}" Width="100"
