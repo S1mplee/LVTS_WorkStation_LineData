@@ -212,7 +212,6 @@ namespace MyUI.models
             script.Add(".WithTarget(\""+config+"\")");
             script.Add(".AddFileLogger(new MSBuildFileLogger {");
             script.Add("LogFile = "+"@\""+logfile+"\",");
-            script.Add("MSBuildFileLoggerOutput = MSBuildFileLoggerOutput.ErrorsOnly,");
             script.Add(" PerformanceSummaryEnabled = true,");
             script.Add("AppendToLogFile	= true");
             script.Add("}));");

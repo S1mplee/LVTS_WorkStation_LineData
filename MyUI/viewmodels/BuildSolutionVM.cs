@@ -266,6 +266,7 @@ namespace MyUI.viewmodels
 
                     sc.CreateScript(Mode, "Build", LongViewpath, Solution, selectedVersion, ".\\logs\\" + _logfile + "log.txt");
                     MessageBox.Show("Script Created ! ");
+                    Process.Start(@"C:\Windows\notepad.exe", "build.cake");
                 }
             }
             catch (Exception ex)

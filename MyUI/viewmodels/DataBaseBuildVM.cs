@@ -159,6 +159,8 @@ namespace MyUI.viewmodels
                     sc.DataBaseScript(LongViewpath, Server, Mode,selectedVersion,Sqlversion);
                     File.AppendAllText(".\\logs\\" + _logfile + "log.txt", "                                 ***************************************************                             \r\n");
                     File.AppendAllText(".\\logs\\"+_logfile +"log.txt", "DataBase Build Script Created ! \r\n");
+                    MessageBox.Show("Script Created For Mode :" + Mode);
+                    Process.Start(@"C:\Windows\notepad.exe", "build.cake");
                 }
                 else
                 {
