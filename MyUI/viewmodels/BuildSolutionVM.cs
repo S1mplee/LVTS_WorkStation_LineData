@@ -107,6 +107,7 @@ namespace MyUI.viewmodels
             {
                 if (selectedVersion > 7300)
                 {
+                     // path of visual studio
                     Process.Start(@"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.exe", @LongViewpath + "\\" + Solution );
                 }
                 else

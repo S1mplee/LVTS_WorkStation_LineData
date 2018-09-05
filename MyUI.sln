@@ -5,12 +5,12 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyUI", "MyUI\MyUI.csproj", "{B927D00E-992B-4044-A90F-B5827FF77422}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logo", "logo", "{E7D9CD33-F04B-42E7-818D-593C1BBA58E2}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\1200x630wa_burned.png = ..\..\1200x630wa_burned.png
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerShellConsole", "PowerShellConsole\PowerShellConsole.csproj", "{25C3DCE0-14EA-4240-B099-1F11DD07FBA8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{F16B5C06-0C82-4D90-BE8F-14EB7DDEB90A}"
+	ProjectSection(SolutionItems) = preProject
+		MyUI\images\1200x630wa_burned.png = MyUI\images\1200x630wa_burned.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

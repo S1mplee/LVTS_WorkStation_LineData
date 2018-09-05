@@ -124,9 +124,6 @@ namespace MyUI.models
                 text.Add("</Project>");
             }
 
-          //  File.Create("Microsoft.Cpp.x64.user.props");
-           // File.Create("Microsoft.Cpp.Win32.user.props");
-            // C:\Users\MSI\AppData\Local\Microsoft\MSBuild\v4.0\Microsoft.Cpp.x64.user.props
             File.WriteAllLines("C:\\Users\\"+Environment.UserName+"\\AppData\\Local\\Microsoft\\MSBuild\\v4.0\\Microsoft.Cpp.x64.user.props", text);
             File.WriteAllLines("C:\\Users\\" + Environment.UserName + "\\AppData\\Local\\Microsoft\\MSBuild\\v4.0\\Microsoft.Cpp.Win32.user.props", text);
 

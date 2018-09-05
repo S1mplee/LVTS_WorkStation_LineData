@@ -50,7 +50,7 @@
 
             <Grid Background="Black">
                 <StackPanel Orientation="Horizontal">
-                    <Image Width="50" Margin="5 0 0 0" Height="50" Source="C:\Users\ABoumellessa\Desktop\1200x630wa_burned.png" ></Image>
+                    <Image Width="50" Margin="5 0 0 0" Height="50" Source=".\images\1200x630wa_burned.png" ></Image>
                     <TextBlock Margin="30 0 0 0" Text="LVTS/WorkStation" HorizontalAlignment="Right" VerticalAlignment="Center" FontFamily="WS Simple Gallifreyan" Foreground="#ff0000" FontSize="16"/>
                 </StackPanel>
             </Grid>

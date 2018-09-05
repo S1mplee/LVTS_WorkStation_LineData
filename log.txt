@@ -1,0 +1,6 @@
+ÿþ========== Build: 0 succeeded, 0 failed, 2 up-to-date, 0 skipped ==========
+
+1>------ Clean started: Project: PowerShellConsole, Configuration: Debug Any CPU ------
+2>------ Clean started: Project: MyUI, Configuration: Debug x64 ------
+========== Clean: 2 succeeded, 0 failed, 0 skipped ==========
+
